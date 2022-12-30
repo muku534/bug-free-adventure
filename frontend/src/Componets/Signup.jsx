@@ -35,7 +35,7 @@ const Signup = () => {
           throw new Error('Something went wrong');
         }
       })
-      .then(data => {
+      .then(_data => {
         // User was successfully created in the database, redirect to the login page
         window.location.href = '/Signin';
       })

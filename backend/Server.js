@@ -16,7 +16,7 @@ app.use(express.json());
 //     console.log('listening to the port no 5000');
 // });
 
-app.listen(5000, () => {
+app.listen(5000, '0.0.0.0', () => {
     console.log('listening to the port no 5000');
 });
 

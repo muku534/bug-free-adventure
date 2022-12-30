@@ -20,7 +20,7 @@ const Signin = () => {
   const handleSubmit = event => {
     event.preventDefault();
     // Send a POST request to the server with the form data
-    fetch('/Signin', {
+    fetch('/signin', {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: { 'Content-Type': 'application/json' }
@@ -42,6 +42,7 @@ const Signin = () => {
   };
 
   return (
+     <form onSubmit={handleSubmit}>
       <section className="vh-100">
         <div className="container-fluid h-custom">
           <div className="row d-flex justify-content-center align-items-center h-100">
@@ -50,7 +51,7 @@ const Signin = () => {
                 className="img-fluid" alt="" />
             </div>
             <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form onSubmit={handleSubmit}>
+             
                 <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                   <p className="lead fw-normal mb-0 me-3">Sign in with</p>
                   <button type="button" className="btn btn-primary btn-floating mx-1">
@@ -103,11 +104,11 @@ const Signin = () => {
                   <p className="medium fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="Signup"
                     className="link-danger">Register</a></p>
                 </div>
-              </form>
             </div>
           </div>
         </div>
       </section>
+       </form>
   );
 };
 
