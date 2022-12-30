@@ -20,7 +20,7 @@ const Signin = () => {
   const handleSubmit = event => {
     event.preventDefault();
     // Send a POST request to the server with the form data
-    fetch('/api/buyers/Signin', {
+    fetch('/Signin', {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: { 'Content-Type': 'application/json' }

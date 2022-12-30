@@ -6,14 +6,20 @@ const User = require('./model/UserDetails.js')
 const jwt = require('jsonwebtoken')
 // const bcrypt = require('bcryptjs')
 
+app.use(express.json());
 
-const server = http.createServer((req, res) => {
-    res.end('Hello from the other sides');
+// const server = http.createServer((req, res) => {
+//     res.end('Hello from the other sides');
+// });
+
+// server.listen(5000, () => {
+//     console.log('listening to the port no 5000');
+// });
+
+app.listen(5000, () => {
+    console.log('listening to the port no 5000');
 });
 
-server.listen(5000, () => {
-    console.log('listening to the port no 5000');
-})
 // "mongodb+srv://MUkeshPrajapati:mukesh3399@cluster0.wspzlbi.mongodb.net/?retryWrites=true&w=majority"
 const DB = 'mongodb+srv://MUkeshPrajapati:mukesh3399@cluster0.wspzlbi.mongodb.net/Final_year_project?retryWrites=true&w=majority'
 
@@ -29,9 +35,9 @@ mongoose.connect(DB, {
 }).catch((err) => console.log('Error in connecting to DataBase', err.message));
 
 //Routes
-app.post("/signin", (req, res)=> {
+app.post("/signin", async (req, res)=> {
     const { email, password} = req.body
-    User.findOne({ email: email}, (err, user) => {
+   await User.findOne({ email: email}, async(err, user) => {
         if(user){
             if(password === user.password ) {
                 res.send({message: "Login Successfull", user: user})
@@ -44,13 +50,13 @@ app.post("/signin", (req, res)=> {
     })
 }) 
 
-app.post("/signup", (req, res)=> {
+app.post("/signup", async (req, res)=> {
     const { fname, lname, email, password} = req.body
-    User.findOne({email: email}, (err, user) => {
+    User.findOne({email: email}, async(err, user) => {
         if(user){
             res.send({message: "User already registerd"})
         } else {
-            const user = new user({
+            const user = new User({
                 fname,
                 lname,
                 email,

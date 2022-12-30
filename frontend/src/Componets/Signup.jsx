@@ -23,7 +23,7 @@ const Signup = () => {
   const handleSubmit = event => {
     event.preventDefault();
     // Send a POST request to the server with the form data
-    fetch('/api/buyers', {
+    fetch('/signup', {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: { 'Content-Type': 'application/json' }
@@ -54,74 +54,73 @@ const Signup = () => {
                 className="img-fluid" alt="" />
             </div>
             <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form>
-                <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start ">
-                  <p className="lead fw-normal mb-0 me-3">Sign up with</p>
-                  <button type="button" className="btn btn-primary btn-floating mx-1">
-                    <i className="fab fa-facebook-f"></i>
-                  </button>
 
-                  <button type="button" className="btn btn-primary btn-floating mx-1">
-                    <i className="fab fa-google"></i>
-                  </button>
+              <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start ">
+                <p className="lead fw-normal mb-0 me-3">Sign up with</p>
+                <button type="button" className="btn btn-primary btn-floating mx-1">
+                  <i className="fab fa-facebook-f"></i>
+                </button>
 
-                  <button type="button" className="btn btn-primary btn-floating mx-1">
-                    <i className="fab fa-linkedin-in"></i>
-                  </button>
-                </div>
+                <button type="button" className="btn btn-primary btn-floating mx-1">
+                  <i className="fab fa-google"></i>
+                </button>
 
-                <div className="divider d-flex align-items-center my-4">
-                  <p className="text-center fw-bold mx-3 mb-0">Or</p>
-                </div>
+                <button type="button" className="btn btn-primary btn-floating mx-1">
+                  <i className="fab fa-linkedin-in"></i>
+                </button>
+              </div>
 
-                <div className="row mb-4">
-                  <div className="col">
-                    <div className="form-outline">
-                      <input type="text" id="form3Example1" className="form-control" name="fname"
-                        value={formData.fname}
-                        onChange={handleChange} required />
-                      <label className="form-label" htmlFor="form3Example1">First name</label>
-                    </div>
-                  </div>
-                  <div className="col">
-                    <div className="form-outline">
-                      <input type="text" id="form3Example2" className="form-control" name="lname"
-                        value={formData.lname}
-                        onChange={handleChange} required />
-                      <label className="form-label" htmlFor="form3Example2">Last name</label>
-                    </div>
+              <div className="divider d-flex align-items-center my-4">
+                <p className="text-center fw-bold mx-3 mb-0">Or</p>
+              </div>
+
+              <div className="row mb-4">
+                <div className="col">
+                  <div className="form-outline">
+                    <input type="text" id="form3Example1" className="form-control" name="fname"
+                      value={formData.fname}
+                      onChange={handleChange} required />
+                    <label className="form-label" htmlFor="form3Example1">First name</label>
                   </div>
                 </div>
-
-                {/* <!-- Email input --> */}
-                <div className="form-outline mb-4">
-                  <input type="email" id="form3Example3" className="form-control" name="email"
-                    value={formData.email}
-                    onChange={handleChange} required />
-                  <label className="form-label" htmlFor="form3Example3">Email address</label>
+                <div className="col">
+                  <div className="form-outline">
+                    <input type="text" id="form3Example2" className="form-control" name="lname"
+                      value={formData.lname}
+                      onChange={handleChange} required />
+                    <label className="form-label" htmlFor="form3Example2">Last name</label>
+                  </div>
                 </div>
+              </div>
 
-                {/* <!-- Password input --> */}
-                <div className="form-outline mb-4">
-                  <input type="password" id="form3Example4" className="form-control" name="password"
-                    value={formData.password}
-                    onChange={handleChange} required />
-                  <label className="form-label" htmlFor="form3Example4">Password</label>
-                </div>
+              {/* <!-- Email input --> */}
+              <div className="form-outline mb-4">
+                <input type="email" id="form3Example3" className="form-control" name="email"
+                  value={formData.email}
+                  onChange={handleChange} required />
+                <label className="form-label" htmlFor="form3Example3">Email address</label>
+              </div>
 
-                {/* <!-- Checkbox --> */}
-                <div className="form-check d-flex  mb-4">
-                  <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3" required />
-                  <label className="form-check-label" htmlFor="form2Example3">
-                    Remember me
-                  </label>
-                </div>
+              {/* <!-- Password input --> */}
+              <div className="form-outline mb-4">
+                <input type="password" id="form3Example4" className="form-control" name="password"
+                  value={formData.password}
+                  onChange={handleChange} required />
+                <label className="form-label" htmlFor="form3Example4">Password</label>
+              </div>
 
-                {/* <!-- Submit button --> */}
-                <button type="submit" className="btn btn-primary btn-block mb-4" >Sign up</button>
-                <p className="medium fw-bold mt-2 pt-1 mb-0">you already have an account? <a href="Signin"
-                  className="link-primary">Signin</a></p>
-              </form>
+              {/* <!-- Checkbox --> */}
+              <div className="form-check d-flex  mb-4">
+                <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3" required />
+                <label className="form-check-label" htmlFor="form2Example3">
+                  Remember me
+                </label>
+              </div>
+
+              {/* <!-- Submit button --> */}
+              <button type="submit" className="btn btn-primary btn-block mb-4" >Sign up</button>
+              <p className="medium fw-bold mt-2 pt-1 mb-0">you already have an account? <a href="Signin"
+                className="link-primary">Signin</a></p>
             </div>
           </div>
         </div>

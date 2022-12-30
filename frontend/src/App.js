@@ -54,7 +54,7 @@ function App() {
         {/* {signin === "true" ? <Signin/> : <Category/>} */}
         {/* {signup === "true" ? <Signup/> : <Category/>} */}
         {/* <ImageSlider /> */}
-        <Category />
+        {/* <Category /> */}
         {/* {gamingLaptop === "true" ? <GamingLaptop/> : <Card/>} */}
         {/* {officeLaptop === "true" ? <OfficeLaptop/> : <Card/>} */}
         {/* {item === "true" ? <Item/> : <Card/>} */}
