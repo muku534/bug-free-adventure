@@ -1,5 +1,5 @@
-import React,{usesat} from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import '../App.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -8,13 +8,17 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+// import { useSelector, useDispatch } from 'react-redux'
+// import { UserLogout,} from '../redux/Action/userAction'
+// import store from '../validation/store'
 export default function NavbarC() {
+
     return (
         <div>
             {['sm'].map((expand) => (
                 <Navbar key={expand} bg="dark" variant="dark" expand={expand} fixed="top">
                     <Container fluid>
-                        <Navbar.Brand href="#">Navbar</Navbar.Brand>
+                        <Navbar.Brand href="#">SCS</Navbar.Brand>
                         <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
                         <Navbar.Offcanvas
                             id={`offcanvasNavbar-expand-${expand}`}
@@ -22,8 +26,8 @@ export default function NavbarC() {
                             placement="end"
                         >
                             <Offcanvas.Header closeButton>
-                                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                                    Offcanvas
+                                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}  >
+                                    SCS
                                 </Offcanvas.Title>
                             </Offcanvas.Header>
                             <Offcanvas.Body>
@@ -45,6 +49,19 @@ export default function NavbarC() {
                                             Something else here
                                         </NavDropdown.Item>
                                     </NavDropdown>
+                                    <NavDropdown
+                                        title="Mr.Mukesh"
+                                        id={`offcanvasNavbarDropdown-expand-OnSelect-${expand}`}
+                                    >
+                                        <NavDropdown.Item href="/Profile">My Profile</NavDropdown.Item>
+                                        <NavDropdown.Item href="#action4">
+                                            Settings
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Divider />
+                                        <NavDropdown.Item href="#action5">
+                                            Logout
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
                                 </Nav>
                                 <Form className="d-flex">
                                     {/* <Form.Control
@@ -54,6 +71,7 @@ export default function NavbarC() {
                                         aria-label="Search"
                                     />
                                         <Button variant="outline-success">Search</Button> */}
+
                                     <Link to={"/Signin"}>
                                         <Button variant="outline-success" className="ml-2" >Signin</Button>
                                     </Link>

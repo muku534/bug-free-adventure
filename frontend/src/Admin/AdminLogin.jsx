@@ -1,53 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux'
-import axios from 'axios'
-import { toaster } from 'react-hot-toast'
-import { useFormik } from 'formik'
-import GoogleLogin from 'react-google-login';
 import jwt_decode from 'jwt-decode';
-const google = window.google;
-const Signin = (props) => {
-  // const store = useSelector((store) => store)
-  // const [isLoading, setIsLoading] = useState(false)
-
-  // signin with google functionality 
-  // function handleCallbackResponse(response) {
-  //   console.log("Encoded Jwt ID token: " + response.credential);
-  //   var userObject = jwt_decode(response.credential);
-  //   console.log(userObject);
-  //   // setUserData(userObject);
-  // }
-
-  // useEffect(() => {
-  //   // global google 
-  //   google.accounts.id.initialize({
-  //     client_id: "646640035068-eso1sdc4vof6f36und3muubcgso9t0ns.apps.googleusercontent.com",
-  //     callback: handleCallbackResponse
-  //   });
-
-  //   google.accounts.id.renderButton(
-  //     document.getElementById("signIn"),
-  //     { theme: "outline", size: "large" }
-  //   )
-  // }, []);
-
-  // const responseSuccessGoogle = (response) => {
-  //   console.log(response);
-  //   axios({
-  //     method:'POST',
-  //     url:"http://localhost:5000/api/googlelogin",
-  //     data:{tokenid: response.tokenid}
-  //   }).then(response =>{
-  //     console.log(response);
-  //   })
-  // }
-  // const responseErrorGoogle = (response) => {
-  //   console.log(response);
-  // }
-
-  // signin with google functionality over
-
-
+const AdminLogin = (props) => {
+  
   // Use state to store the form data
   const [formData, setFormData] = useState({
     email: '',
@@ -67,7 +21,7 @@ const Signin = (props) => {
   const handleSubmit = event => {
     event.preventDefault();
     // Send a POST request to the server with the form data
-    fetch('/signin', {
+    fetch('/adminlogin', {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: { 'Content-Type': 'application/json' }
@@ -88,18 +42,6 @@ const Signin = (props) => {
       });
   };
 
-  // useEffect(() => {
-  //   if (store.error ||
-  //     store.User.isAuthenticated) {
-  //     setIsLoading(false)
-  //   }
-
-  //   else {
-  //     setIsLoading(true)
-  //   }
-  // }, [store.error, store.User.isAuthenticated])
-
-
   return (
     <form onSubmit={handleSubmit} >
       <section className="vh-100" id='SignIN'>
@@ -111,32 +53,13 @@ const Signin = (props) => {
             </div>
             <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 
-              <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+              {/* <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                 <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-                <div className='signIn' id='signIn'>
-                  {/* <GoogleLogin
-                    client_id="646640035068-eso1sdc4vof6f36und3muubcgso9t0ns.apps.googleusercontent.com"
-                    onSuccess={responseSuccessGoogle}
-                    onFailure={responseErrorGoogle}
-                    cookiePolicy={'single_host_origin'}
-                    /> */}
-                </div>
-                {/* <button type="button" className="btn btn-primary btn-floating mx-1">
-                  <i className="fab fa-facebook-f"></i>
-                </button>
+              </div> */}
 
-                <button type="button" className="btn btn-primary btn-floating mx-1">
-                  <i className="fab fa-google"></i>
-                </button>
-
-                <button type="button" className="btn btn-primary btn-floating mx-1">
-                  <i className="fab fa-linkedin-in"></i>
-                </button> */}
-              </div>
-
-              <div className="divider d-flex align-items-center my-4">
+              {/* <div className="divider d-flex align-items-center my-4">
                 <p className="text-center fw-bold mx-3 mb-0">Or</p>
-              </div>
+              </div> */}
 
               {/* <!-- Email input --> */}
               <div className="form-outline mb-4">
@@ -189,4 +112,4 @@ const Signin = (props) => {
   );
 };
 
-export default Signin;
+export default AdminLogin;
