@@ -27,7 +27,7 @@ import AdminLogin from './Admin/AdminLogin';
 import AdminSignup from './Admin/AdminSignup';
 import Topbar from './scenes/global/Topbar';
 import Dashboard from './scenes/Dashboard';
-// import Sidebar from './scenes/global/Sidebar';
+import Sidebar from './scenes/global/Sidebar';
 // import Team from "./scenes/team";
 // import Invoices from "./scenes/invoices";
 // import Contacts from "./scenes/contacts";
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
   { path: "/ResetPassword", element: <> <NavbarC /> <ResetPassword /> </> },
   { path: "/AdminLogin", element: <AdminLogin /> },
   { path: "/AdminSignup", element: <AdminSignup /> },
-  { path: "adminDashboard", element: <> <Dashboard /> </> },
+  { path: "/adminDashboard", element: <> <Dashboard /> </> },
   // { path: "/team", element: <Team /> },
   // { path: "/contacts", element: <Contacts /> },
   // { path: "/invoices", element: <Invoices /> },

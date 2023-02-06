@@ -44,10 +44,11 @@ mongoose.connect(DB, {
 require("./api/adminsignup")(app);
 require("./api/adminlogin")(app);
 // require("./controller/products");
-require("./api/product");
+// require("./api/product");
 require("./api/Signin")(app);
 require("./api/Signup")(app);
 require("./api/googlelogin");
+require("./api/Product")(app);
 
 
 
