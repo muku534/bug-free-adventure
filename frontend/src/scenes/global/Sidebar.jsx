@@ -64,12 +64,12 @@ const Sidebar = () => {
         >
             <ProSidebarProvider collapsed={isCollapsed}>
                 <Menu iconShape="square"
-                    // active={selected === title}
-                    // style={{
-                    //     color: colors.grey[100],
-                    // }}
-                    // onClick={() => setSelected(title)}
-                    // icon={icon}
+                // active={selected === title}
+                // style={{
+                //     color: colors.grey[100],
+                // }}
+                // onClick={() => setSelected(title)}
+                // icon={icon}
                 >
                     {/* LOGO AND MENU ICON */}
                     <MenuItem

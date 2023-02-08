@@ -48,7 +48,7 @@ require("./api/adminlogin")(app);
 require("./api/Signin")(app);
 require("./api/Signup")(app);
 require("./api/googlelogin");
-require("./api/Product")(app);
+require("./api/product")(app);
 
 
 

@@ -27,7 +27,7 @@ import AdminLogin from './Admin/AdminLogin';
 import AdminSignup from './Admin/AdminSignup';
 import Topbar from './scenes/global/Topbar';
 import Dashboard from './scenes/Dashboard';
-import Sidebar from './scenes/global/Sidebar';
+// import Sidebar from './scenes/global/Sidebar';
 // import Team from "./scenes/team";
 // import Invoices from "./scenes/invoices";
 // import Contacts from "./scenes/contacts";
@@ -110,9 +110,8 @@ function App() {
             <Topbar setIsSidebar={setIsSidebar} />
           </ThemeProvider>
         </colorModeContext.Provider>
-        <RouterProvider router={router} />
-
       </div>
+      <RouterProvider router={router} />
     </>
   );
 }

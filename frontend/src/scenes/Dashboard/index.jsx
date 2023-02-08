@@ -21,8 +21,8 @@ const Dashboard = () => {
   return (
     <Box m="20px">
       {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+      <Box display="flex" justifyContent="space-between" alignItems="center" >
+        <Header title="DASHBOARD" subtitle="Welcome to your dashboard"/>
 
         <Box>
           {/* <Button
@@ -223,6 +223,9 @@ const Dashboard = () => {
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           p="30px"
+          color={colors.grey[100]}
+          overflow="hidden"
+
         >
           <Typography variant="h5" fontWeight="600">
             Campaign
@@ -232,6 +235,7 @@ const Dashboard = () => {
             flexDirection="column"
             alignItems="center"
             mt="25px"
+            
           >
             <ProgressCircle size="125" />
             <Typography
@@ -248,6 +252,8 @@ const Dashboard = () => {
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
+          color={colors.grey[100]}
+          overflow="hidden"
         >
           <Typography
             variant="h5"
@@ -265,6 +271,8 @@ const Dashboard = () => {
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           padding="30px"
+          color={colors.grey[100]}
+          overflow="hidden"
         >
           <Typography
             variant="h5"
