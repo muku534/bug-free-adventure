@@ -49,6 +49,8 @@ require("./api/Signin")(app);
 require("./api/Signup")(app);
 require("./api/googlelogin");
 require("./api/product")(app);
+// require("./router/auth/profile");
+app.use(require("./router/auth"));
 
 
 

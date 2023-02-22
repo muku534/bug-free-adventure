@@ -10,8 +10,7 @@ module.exports = (app) => {
             success: true,
             product
         })
-
-
+        next();
     })
 }
 

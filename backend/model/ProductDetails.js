@@ -28,7 +28,7 @@ const ProductDetailsScehma = new mongoose.Schema({
                 required:true
             },
             url:{
-                type:String,
+                type:String, 
                 required:true
             },            
         }
@@ -59,7 +59,7 @@ const ProductDetailsScehma = new mongoose.Schema({
                 type:String,
                 required:true
             },
-            ratings:{
+            rating:{
                 type:String,
                 required:true
             },

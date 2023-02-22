@@ -1,10 +1,11 @@
+const express = require('express')
 const jwt = require('jsonwebtoken')
-const express = require('exoress')
-const router = express.router();
+const router = express.Router();
 const bcrypt = require('bcrypt')
 
 
 const User = require('../model/UserDetails');
+const Product = require('../model/ProductDetails');
 const Authentication = require('../middleware/Authentication');
 
 
@@ -127,7 +128,19 @@ router.post("/adminlogin", async (req, res) => {
 
 
 //Profile page
-
 router.get('/profile', Authentication, (req, res,) => {
     res.send(req.rootUser);
 })
+
+
+router.post("/Product", async (req, res, next) => {
+    const product = await Product.create(req.body);
+
+    res.status(201).json({
+        success: true,
+        product
+    })
+    next();
+})
+
+module.exports = router;
