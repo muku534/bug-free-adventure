@@ -11,10 +11,13 @@ const cors  = require('cors')
 const morgan = require('morgan')
 const Signin = require('./api/Signin')
 const Signup = require('./api/Signup')
+const cookieparser = require('cookie-parser')
 // app.set("view engine", "ejs");
 
 
 app.use(express.json());
+
+app.use(cookieparser());
 
 /** middlewares */
 app.use(cors());
@@ -48,7 +51,7 @@ require("./api/adminlogin")(app);
 require("./api/Signin")(app);
 require("./api/Signup")(app);
 require("./api/googlelogin");
-require("./api/product")(app);
+// require("./api/product")(app);
 // require("./router/auth/profile");
 app.use(require("./router/auth"));
 

@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux'
-import toast, { Toaster } from 'react-hot-toast';
-import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom'
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
 // import store from '../validation/store';
 const Profile = () => {
 
     const Navigate = useNavigate();
-    const [userData,serUserData] = useState();
-    
-    const callProfile = async () => {
+    const [userData, setUserData] = useState();
+
+    const callProfilePage = async () => {
         try {
             const res = await fetch('/profile', {
                 method: "GET",
@@ -22,8 +19,8 @@ const Profile = () => {
             });
 
             const data = await res.json();
-            console.log(data);
-            serUserData(data);
+            console.log(data)
+            setUserData(data);
 
             if (!res.status === 200) {
                 const error = new Error(res.error);
@@ -37,7 +34,7 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        callProfile();
+        callProfilePage();
     }, [])
 
     return (
@@ -50,14 +47,14 @@ const Profile = () => {
                                 <MDBCard>
                                     <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                         <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
-                                            <MDBCardImage src={userData.avatar}
+                                            <MDBCardImage src=""
                                                 alt="Generic placeholder image" className="mt-4 mb-2 img-thumbnail" fluid style={{ width: '150px', zIndex: '1' }} />
                                             <MDBBtn outline color="dark" className="customClass" style={{ height: '36px', overflow: 'visible' }}>
                                                 Edit profile
                                             </MDBBtn>
                                         </div>
                                         <div className="ms-3" style={{ marginTop: '130px' }}>
-                                            <MDBTypography tag="h5">{userData.Fname}</MDBTypography>
+                                            <MDBTypography tag="h5">{userData.fname}</MDBTypography>
                                             <MDBCardText>Surat</MDBCardText>
                                         </div>
                                     </div>
@@ -83,11 +80,11 @@ const Profile = () => {
                                                 <tbody className="text-black">
                                                     <tr>
                                                         <td>Name :</td>
-                                                        <td>{userData.fname}</td>
+                                                        <td>Mr.Mukesh</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Email :</td>
-                                                        <td>{userData.email}</td>
+                                                        <td>mukesh@gmail.com</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Gender :</td>
@@ -96,7 +93,7 @@ const Profile = () => {
                                                     </tr>
                                                     <tr>
                                                         <td>Phone Number:</td>
-                                                        <td>{userData.phoneNumber}</td>
+                                                        <td>8238272244</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

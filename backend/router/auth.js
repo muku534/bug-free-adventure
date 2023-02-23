@@ -132,7 +132,7 @@ router.get('/profile', Authentication, (req, res,) => {
     res.send(req.rootUser);
 })
 
-
+// add products
 router.post("/Product", async (req, res, next) => {
     const product = await Product.create(req.body);
 
@@ -141,6 +141,80 @@ router.post("/Product", async (req, res, next) => {
         product
     })
     next();
+})
+
+//get all products
+router.get("/getProducts", async (req, res, next) => {
+    const getProducts = await Product.find();
+
+    res.status(200).json({
+        success: true,
+        count: getProducts.length,
+        getProducts
+    })
+})
+
+//get single product
+router.get("/getSingleProducts", async (req, res, next) => {
+    const getSingleProducts = await Product.findById(req.params._id);
+
+    if (!getSingleProducts) {
+        return res.status(404).json({
+            success: false,
+            message: "Product not Found"
+        })
+    }
+
+    res.status(200).json({
+        success: true,
+        getSingleProducts
+    })
+})
+
+//update the Products
+
+router.put("/updateProducts",async(req,res,next)=>{
+
+    let product = await Product.findById(req.params._id);
+
+    if(!product){
+        return res.status(404).json({
+            success:true,
+            message:"product not found"
+        })
+    }
+
+    product = await Product.findByIdAndUpdate(req.params._id, req.body,{
+        new:true,
+        runValidators:true,
+        useFindAndModify:false
+    });
+
+    res.status(200).json({
+        success:true,
+        product
+    })
+}) 
+
+//delete products
+
+router.delete("/deleteProducts",async(req,res,next)=>{
+
+    const product = await Product.findById(req.params.id);
+
+    if(!product){
+        return res.status(404).json({
+            success:false,
+            message:"Product not Found"
+        })
+    }
+
+    await Product.remove();
+
+    res.status(200).json({
+        success:true,
+        message:"product is Deleted Sucessfully"
+    })
 })
 
 module.exports = router;
