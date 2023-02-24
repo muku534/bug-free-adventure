@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 
 const User = require('../model/UserDetails');
 const Product = require('../model/ProductDetails');
+const Order = require('../model/Order');
 const Authentication = require('../middleware/Authentication');
 
 
@@ -126,6 +127,21 @@ router.post("/adminlogin", async (req, res) => {
     })
 });
 
+//logout 
+router.post("/logout", async (req, res) => {
+
+    res.cookie('token', null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    })
+
+    res.status(200).json({
+        success: true,
+        message: 'logged out'
+    })
+
+})
+
 
 //Profile page
 router.get('/profile', Authentication, (req, res,) => {
@@ -172,49 +188,76 @@ router.get("/getSingleProducts", async (req, res, next) => {
 })
 
 //update the Products
-
-router.put("/updateProducts",async(req,res,next)=>{
+router.put("/updateProducts", async (req, res, next) => {
 
     let product = await Product.findById(req.params._id);
 
-    if(!product){
+    if (!product) {
         return res.status(404).json({
-            success:true,
-            message:"product not found"
+            success: true,
+            message: "product not found"
         })
     }
 
-    product = await Product.findByIdAndUpdate(req.params._id, req.body,{
-        new:true,
-        runValidators:true,
-        useFindAndModify:false
+    product = await Product.findByIdAndUpdate(req.params._id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
     });
 
     res.status(200).json({
-        success:true,
+        success: true,
         product
     })
-}) 
+})
 
 //delete products
-
-router.delete("/deleteProducts",async(req,res,next)=>{
+router.delete("/deleteProducts", async (req, res, next) => {
 
     const product = await Product.findById(req.params.id);
 
-    if(!product){
+    if (!product) {
         return res.status(404).json({
-            success:false,
-            message:"Product not Found"
+            success: false,
+            message: "Product not Found"
         })
     }
 
     await Product.remove();
 
     res.status(200).json({
-        success:true,
-        message:"product is Deleted Sucessfully"
+        success: true,
+        message: "product is Deleted Sucessfully"
     })
 })
 
+
+//create new order
+router.post("/newOrder", async (req, res, next) => {
+    const { orderItems,
+        shippingInfo,
+        itemsPrice,
+        taxPrice,
+        shippingPrice,
+        totalPrice,
+        paymentInfo
+    } = req.body;
+
+    const order = await Order.create({
+        orderItems,
+        shippingInfo,
+        itemsPrice,
+        taxPrice,
+        shippingInfo,
+        totalPrice,
+        paymentInfo,
+        paidAt: Date.now(),
+        user: req.user._id
+    })
+
+    res.send(200).json({
+        success: true,
+        order
+    })
+})
 module.exports = router;

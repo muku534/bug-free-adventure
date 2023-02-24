@@ -1,21 +1,23 @@
 import React from 'react'
-
-import { Route, Switch } from 'react-router-dom'
-
+import { createBrowserRouter, RouterProvider, } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard'
 import Customers from '../pages/Customers'
 import Analytics from '../pages/Analytics'
 import Products from '../pages/Products'
 
-const Routes = () => {
+const router = createBrowserRouter([
+    { path: "/", element: <> <Dashboard /> </> },
+    { path: "/customers", element: <> <Customers /> </> },
+    { path: "/analytics", element: <> <Analytics /> </> },
+    { path: "/Products", element: <> <Products /> </> }
+])
+
+function Routes() {
     return (
-        <Switch>
-            <Route path='/' exact component={Dashboard}/>
-            <Route path='/customers' component={Customers}/>
-            <Route path='/analytics' component={Analytics}/>
-            <Route path='/Products' component={Products}/>
-        </Switch>
+        <>
+            <RouterProvider router={router} />
+        </>
     )
 }
 
-export default Routes
+export default Routes;

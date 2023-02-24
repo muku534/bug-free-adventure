@@ -11,6 +11,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 // import { useSelector, useDispatch } from 'react-redux'
 // import { UserLogout,} from '../redux/Action/userAction'
 // import store from '../validation/store'
+import { MDBIcon } from 'mdb-react-ui-kit';
 export default function NavbarC() {
 
     return (
@@ -63,6 +64,7 @@ export default function NavbarC() {
                                         </NavDropdown.Item>
                                     </NavDropdown>
                                 </Nav>
+                                <MDBIcon fas icon="shopping-cart" />
                                 <Form className="d-flex">
                                     {/* <Form.Control
                                         type="search"
@@ -78,6 +80,7 @@ export default function NavbarC() {
                                     <Link to={"/Signup"}>
                                         <Button variant="outline-success" className="ml-2">Signup</Button>
                                     </Link>
+
                                 </Form>
                             </Offcanvas.Body>
                         </Navbar.Offcanvas>

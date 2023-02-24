@@ -11,7 +11,7 @@ export default function Cart() {
           <div className="box">
             <div className="row">
               <h2>Lenovo Chromebook Flex 3 11" Laptop, 11.6-Inch HD IPS Display, MediaTek <br /> MT8173C, 4GB RAM, 64GB Storage, Chrome OS, Blizzard White</h2>
-              <span>$178.00</span>
+              <span>₹178.00</span>
             </div>
 
             <p><b>Available at a lower price from other sellers that may not offer free Prime shipping. </b><br />
@@ -36,7 +36,7 @@ export default function Cart() {
         </div>
 
         <div className="total">
-          <h3>Total: $178</h3>
+          <h3>Total: ₹178</h3>
           <Link to="/payment">Payment</Link>
         </div>
       </div>

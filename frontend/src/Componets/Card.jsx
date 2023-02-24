@@ -25,7 +25,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -95,7 +95,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -141,7 +141,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -164,7 +164,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -187,7 +187,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -210,7 +210,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -233,7 +233,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -256,7 +256,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
@@ -279,7 +279,7 @@ export default function Card() {
                                 <span className="material-symbols-outlined">star_rate</span>
                                 <span className="material-symbols-outlined">star_half</span>
                             </div>
-                            <h4 className='ml-3'>$500</h4>
+                            <h4 className='ml-3'>₹50000</h4>
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div> */}
