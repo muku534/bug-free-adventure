@@ -6,7 +6,8 @@ const bcrypt = require('bcrypt')
 
 const User = require('../model/UserDetails');
 const Product = require('../model/ProductDetails');
-const Order = require('../model/Order');
+// const Order = require('../model/Order');
+const Order = require('../model/Order')
 const Authentication = require('../middleware/Authentication');
 
 
@@ -248,11 +249,11 @@ router.post("/newOrder", async (req, res, next) => {
         shippingInfo,
         itemsPrice,
         taxPrice,
-        shippingInfo,
+        shippingPrice,
         totalPrice,
         paymentInfo,
         paidAt: Date.now(),
-        user: req.user._id
+        user: req.User.id
     })
 
     res.send(200).json({
@@ -260,4 +261,64 @@ router.post("/newOrder", async (req, res, next) => {
         order
     })
 })
+
+
+//get logged in user orders 
+router.post("/myOrders", async (req, res, next) => {
+    const orders = await Order.find({ user: req.user.id })
+
+    res.status(200).json({
+        success: true,
+        orders
+    })
+})
+
+
+// get all orders 
+router.get("/allOrders", async (req, res, next) => {
+    const orders = await orders.find()
+
+    let totaalAmount = 0;
+    orders.forEach(order => {
+        totaalAmount += order.totalPrice
+    })
+
+    res.status(200).json({
+        success: true,
+        totaalAmount,
+        orders
+    })
+})
+
+//update process of order 
+router.put("/updateOrders", async (req, res, next) => {
+    const order = await Order.findById(req.params.id)
+
+    if (order.orderStatus === 'Delivered') {
+        return next(new ("You Have already delivered thisorder", 400))
+    }
+
+    order.orderItems.forEach(async item => {
+        await updateStock(item.product, item.quantity)
+    })
+
+    order.orderStatus = req.body.status,
+        order.deliveredAt = Date.now()
+
+    await order.save()
+
+    res.status(200).json({
+        success: true,
+    })
+})
+
+async function updateStock(id, quantity) {
+    const product = await Product.findById(id);
+
+    product.stock = product.stock = quantity;
+
+    await product.save()
+}
+
+
 module.exports = router;

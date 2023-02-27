@@ -26,25 +26,25 @@ const AdminDetailsScehma = new mongoose.Schema({
         type: String
     },
     avatar: {
-        public_id:{
+        public_id: {
             type: String,
-            required:true
+            required: true
         },
-        url:{
+        url: {
             type: String,
-            required:true
+            required: true
         }
     },
-    role:{
+    role: {
         type: String,
-        default:'admin'
+        default: 'admin'
     },
-    creactedAt:{
-        type: String,
-        default:Date.now
+    creactedAt: {
+        type: Date,
+        default: Date.now
     },
-    resetPasswordToken:String,
-    resetPasswordExpire:Date
+    resetPasswordToken: String,
+    resetPasswordExpire: Date
 });
 
 const Admin = mongoose.model('Admin', AdminDetailsScehma);

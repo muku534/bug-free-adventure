@@ -45,7 +45,7 @@ const UserDetailsScehma = new mongoose.Schema({
         default: 'user'
     },
     creactedAt: {
-        type: String,
+        type: Date,
         default: Date.now
     },
     tokens: [
@@ -70,8 +70,8 @@ const UserDetailsScehma = new mongoose.Schema({
 
 UserDetailsScehma.methods.generateAuthToken = async function () {
     try {
-        let token = jwt.sign({ _id: this._id}, process.env.SECRET_KEY);
-        this.tokens = this.tokens.concat({token:token});
+        let token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY);
+        this.tokens = this.tokens.concat({ token: token });
         await this.save();
         return token;
     } catch (err) {
