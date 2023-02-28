@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -14,6 +16,10 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { MDBIcon } from 'mdb-react-ui-kit';
 export default function NavbarC() {
 
+    const alert = useAlert();
+    const dispatch = useDispatch()
+
+    const { user, loading } = useSelector(state => state.auth)
     return (
         <div>
             {['sm'].map((expand) => (
@@ -73,6 +79,7 @@ export default function NavbarC() {
                                         aria-label="Search"
                                     />
                                         <Button variant="outline-success">Search</Button> */}
+
 
                                     <Link to={"/Signin"}>
                                         <Button variant="outline-success" className="ml-2" >Signin</Button>

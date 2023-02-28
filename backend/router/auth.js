@@ -6,8 +6,7 @@ const bcrypt = require('bcrypt')
 
 const User = require('../model/UserDetails');
 const Product = require('../model/ProductDetails');
-// const Order = require('../model/Order');
-const Order = require('../model/Order')
+const Order = require('../model/OrderDetails')
 const Authentication = require('../middleware/Authentication');
 
 
@@ -161,13 +160,14 @@ router.post("/Product", async (req, res, next) => {
 })
 
 //get all products
-router.get("/getProducts", async (req, res, next) => {
-    const getProducts = await Product.find();
+router.get("/getAdminProducts", async (req, res, next) => {
+
+    const Products = await Product.find();
 
     res.status(200).json({
         success: true,
         count: getProducts.length,
-        getProducts
+        Products
     })
 })
 
@@ -253,7 +253,7 @@ router.post("/newOrder", async (req, res, next) => {
         totalPrice,
         paymentInfo,
         paidAt: Date.now(),
-        user: req.User.id
+        user: req.user._id
     })
 
     res.send(200).json({
@@ -265,7 +265,7 @@ router.post("/newOrder", async (req, res, next) => {
 
 //get logged in user orders 
 router.post("/myOrders", async (req, res, next) => {
-    const orders = await Order.find({ user: req.user.id })
+    const orders = await Order.find({ User: req.user.id })
 
     res.status(200).json({
         success: true,
