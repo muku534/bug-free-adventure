@@ -160,20 +160,20 @@ router.post("/Product", async (req, res, next) => {
 })
 
 //get all products
-router.get("/getAdminProducts", async (req, res, next) => {
+router.get("/getProducts", async (req, res, next) => {
 
     const Products = await Product.find();
 
     res.status(200).json({
         success: true,
-        count: getProducts.length,
+        count: Products.length,
         Products
     })
 })
 
 //get single product
-router.get("/getSingleProducts", async (req, res, next) => {
-    const getSingleProducts = await Product.findById(req.params._id);
+router.get("/getSingleProducts/:id", async (req, res, next) => {
+    const getSingleProducts = await Product.findById(req.params.id);
 
     if (!getSingleProducts) {
         return res.status(404).json({
@@ -189,9 +189,9 @@ router.get("/getSingleProducts", async (req, res, next) => {
 })
 
 //update the Products
-router.put("/updateProducts", async (req, res, next) => {
+router.put("/updateProducts/:id", async (req, res, next) => {
 
-    let product = await Product.findById(req.params._id);
+    let product = await Product.findById(req.params.id);
 
     if (!product) {
         return res.status(404).json({
@@ -200,7 +200,7 @@ router.put("/updateProducts", async (req, res, next) => {
         })
     }
 
-    product = await Product.findByIdAndUpdate(req.params._id, req.body, {
+    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,
         useFindAndModify: false
@@ -213,7 +213,7 @@ router.put("/updateProducts", async (req, res, next) => {
 })
 
 //delete products
-router.delete("/deleteProducts", async (req, res, next) => {
+router.delete("/deleteProducts/:id", async (req, res, next) => {
 
     const product = await Product.findById(req.params.id);
 
@@ -236,24 +236,24 @@ router.delete("/deleteProducts", async (req, res, next) => {
 //create new order
 router.post("/newOrder", async (req, res, next) => {
     const { orderItems,
-        shippingInfo,
+        ShippingInfo,
         itemsPrice,
         taxPrice,
-        shippingPrice,
+        ShippingPrice,
         totalPrice,
         paymentInfo
     } = req.body;
 
     const order = await Order.create({
         orderItems,
-        shippingInfo,
+        ShippingInfo,
         itemsPrice,
         taxPrice,
-        shippingPrice,
+        ShippingPrice,
         totalPrice,
         paymentInfo,
         paidAt: Date.now(),
-        user: req.user._id
+        user:req.User._id
     })
 
     res.send(200).json({
@@ -265,7 +265,7 @@ router.post("/newOrder", async (req, res, next) => {
 
 //get logged in user orders 
 router.post("/myOrders", async (req, res, next) => {
-    const orders = await Order.find({ User: req.user.id })
+    const orders = await Order.find({ User: req.User.id })
 
     res.status(200).json({
         success: true,

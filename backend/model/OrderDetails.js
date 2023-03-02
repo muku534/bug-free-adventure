@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const User = require('../model/UserDetails');
-const Product = require('../model/ProductDetails');
+const User = require('./UserDetails');
 const OrderDetailsSchema = new mongoose.Schema({
     ShippingInfo: {
         address: {
@@ -12,7 +11,7 @@ const OrderDetailsSchema = new mongoose.Schema({
             required: true
         },
         PhoneNo: {
-            type: String,
+            type: Number,
             required: true
         },
         postalCode: {
@@ -58,7 +57,7 @@ const OrderDetailsSchema = new mongoose.Schema({
             user: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
-                ref: Product
+                ref: 'Product'
             }
         }
     ],
