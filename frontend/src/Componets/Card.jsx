@@ -80,7 +80,7 @@ export default function Card() {
                         <div className="card">
                             <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                                 <a href="/">
-                                    <img src="https://m.media-amazon.com/images/I/611DJR7V1sL.__AC_SX300_SY300_QL70_FMwebp_.jpg" className="img-fluid" alt='' style={{ maxHeight: "210px", maxWidth: "300px" }} />
+                                    <img src="https://m.media-amazon.com/images/I/611DJR7V1sL.__AC_SX300_SY300_QL70_FMwebp_.jpg" className="img-fluid" alt='' style={{ height: "210px", width: "300px" }} />
                                 </a>
                                 <a href="#!">
                                     <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}></div>
@@ -99,6 +99,7 @@ export default function Card() {
                             <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
                         </div>
                     </div>
+                   
                     <div className="col-lg-3 mt-4">
                         <div className="card">
                             <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
