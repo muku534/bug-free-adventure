@@ -64,7 +64,7 @@ app.post("/forgot-password", async (req, res) => {
         if (!user) {
             return res.json({ status: "User Not Exists!!" });
         }
-        const secret = JWT_SECRET + User.password;
+        const secret = SECRET_KEY + User.password;
         const token = jwt.sign({ email: user.email, id: user._id }, secret, {
             expiresIn: "5m",
         });
@@ -78,7 +78,7 @@ app.post("/forgot-password", async (req, res) => {
         });
 
         var mailOptions = {
-            from: "youremail@gmail.com",
+            from: "prajapatimukesh0111@gmail.com",
             to: "20bca116@vtcbb.edu.in",
             subject: "Password Reset",
             text: link,
@@ -102,7 +102,7 @@ app.get("/reset-password/:id/:token", async (req, res) => {
     if (!user) {
         return res.json({ status: "User Not Exists!!" });
     }
-    const secret = JWT_SECRET + user.password;
+    const secret = SECRET_KEY + user.password;
     try {
         const verify = jwt.verify(token, secret);
         res.render("index", { email: verify.email, status: "Not Verified" });
@@ -120,7 +120,7 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     if (!user) {
         return res.json({ status: "User Not Exists!!" });
     }
-    const secret = JWT_SECRET + user.password;
+    const secret = SECRET_KEY + user.password;
     try {
         const verify = jwt.verify(token, secret);
         const encryptedPassword = await bcrypt.hash(password, 10);

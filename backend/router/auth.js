@@ -127,6 +127,9 @@ router.post("/adminlogin", async (req, res) => {
     })
 });
 
+
+
+
 //logout 
 router.post("/logout", async (req, res) => {
 
@@ -147,6 +150,46 @@ router.post("/logout", async (req, res) => {
 router.get('/profile', Authentication, (req, res,) => {
     res.send(req.rootUser);
 })
+
+
+//update User Profile
+router.put("/updateProfile", Authentication, async (req, res, next) => {
+    const NewUserData = {
+        fname: req.body.fname,
+        lname: req.body.lname,
+        email: req.body.email,
+    }
+
+    //update avatar : Later
+
+    const user = await User.findByIdAndUpdate(req.rootUser, NewUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+// //update OR change the Previous Password not Working
+// router.put("/updatePassword", Authentication, async (req, res, next) => {
+//     const password = req.body
+//     const user = await User.findById(req.rootUser).select("+password");
+
+//     //check previous user password 
+//     const isMatched = await bcrypt.compare(password, user.password)
+//     if (!isMatched) {
+//         return next("Old Password is Incorrect");
+//     }
+
+//     // user.password = req, body.password;
+//     await user.save();
+
+//     sendToken(user, 200, res)
+// })
 
 // add products
 router.post("/Product", async (req, res, next) => {
@@ -234,14 +277,15 @@ router.delete("/deleteProducts/:id", async (req, res, next) => {
 
 
 //create new order
-router.post("/newOrder", async (req, res, next) => {
+router.post("/newOrder", Authentication, async (req, res, next) => {
     const { orderItems,
         ShippingInfo,
         itemsPrice,
         taxPrice,
         ShippingPrice,
         totalPrice,
-        paymentInfo
+        paymentInfo,
+        rootUser
     } = req.body;
 
     const order = await Order.create({
@@ -253,10 +297,10 @@ router.post("/newOrder", async (req, res, next) => {
         totalPrice,
         paymentInfo,
         paidAt: Date.now(),
-        user:req.User._id
+        user: req.rootUser
     })
 
-    res.send(200).json({
+    res.status(200).json({
         success: true,
         order
     })
@@ -264,8 +308,9 @@ router.post("/newOrder", async (req, res, next) => {
 
 
 //get logged in user orders 
-router.post("/myOrders", async (req, res, next) => {
-    const orders = await Order.find({ User: req.User.id })
+router.get("/myOrders/:id", Authentication, async (req, res, next) => {
+    // const orders = await Order.find({ User: req.User.id })
+    const orders = await Order.find({ User: req.rootUser })
 
     res.status(200).json({
         success: true,
@@ -275,8 +320,8 @@ router.post("/myOrders", async (req, res, next) => {
 
 
 // get all orders 
-router.get("/allOrders", async (req, res, next) => {
-    const orders = await orders.find()
+router.get("/allOrders", Authentication, async (req, res, next) => {
+    const orders = await Order.find({ User: req.rootUser })
 
     let totaalAmount = 0;
     orders.forEach(order => {
@@ -290,35 +335,88 @@ router.get("/allOrders", async (req, res, next) => {
     })
 })
 
-//update process of order 
-router.put("/updateOrders", async (req, res, next) => {
-    const order = await Order.findById(req.params.id)
+//update process of order Work in progress
+router.put("/updateOrders/:id", Authentication, async (req, res, next) => {
+    const order = await Order.find({ User: req.rootUser })
+    // const order = await Order.findById(req.params.id)
 
     if (order.orderStatus === 'Delivered') {
-        return next(new ("You Have already delivered thisorder", 400))
+        return next("You Have already delivered thisorder", 400)
     }
 
     order.orderItems.forEach(async item => {
         await updateStock(item.product, item.quantity)
     })
 
-    order.orderStatus = req.body.status,
-        order.deliveredAt = Date.now()
+    order.orderStatus = req.body.orderStatus,
+        order.delieverdAt = Date.now()
 
     await order.save()
 
     res.status(200).json({
         success: true,
+
     })
 })
 
 async function updateStock(id, quantity) {
     const product = await Product.findById(id);
 
-    product.stock = product.stock = quantity;
+    product.stock = product.stock - quantity;
 
-    await product.save()
+    await product.save({ validateBeforeSave: false })
 }
 
+// delete the orders
+router.delete("/deleteOrder/:id", async (req, res, next) => {
+    const order = await Order.findById(req.params.id)
 
+    if (!order) {
+        return next("no order found with this ID", 404)
+    }
+
+    await order.remove()
+
+    res.status(200).json({
+        success: true
+    })
+})
+
+//User can give the Reviews and also remove it 
+router.put("/reviews", Authentication, async (req, res, next) => {
+    const { rating, comment, ProductId } = req.body;
+
+    const review = {
+        user: req.rootUser._id,
+        fname: req.body.fname,
+        ratings: Number(rating),
+        comment
+    }
+
+    const product = await Product.findById(ProductId);
+
+    const isReviewed = product.reviews.find(
+        r => r.user.toString() === req.rootuser._id.toString()
+    )
+
+    if (isReviewed) {
+        product.reviews.forEach(review => {
+            if (review.user.toString() === req.rootUser._id.toString()) {
+                review.Comment = comment;
+                review.rating = rating;
+            }
+        })
+    } else {
+        product.reviews.push(review);
+        product.numofReviews = product.reviews.length
+    }
+
+    product.ratings = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length
+
+    await product.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+        success: true
+    })
+})
 module.exports = router;

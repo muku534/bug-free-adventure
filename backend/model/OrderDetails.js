@@ -15,7 +15,7 @@ const OrderDetailsSchema = new mongoose.Schema({
             required: true
         },
         postalCode: {
-            type: String,
+            type: Number,
             required: true
         },
         country: {
@@ -54,7 +54,7 @@ const OrderDetailsSchema = new mongoose.Schema({
                 type: Number,
                 required: true
             },
-            user: {
+            product: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
                 ref: 'Product'
