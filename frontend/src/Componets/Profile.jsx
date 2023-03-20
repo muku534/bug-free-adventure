@@ -54,7 +54,7 @@ const Profile = () => {
                                             </MDBBtn>
                                         </div>
                                         <div className="ms-3" style={{ marginTop: '130px' }}>
-                                            <MDBTypography tag="h5">{userData.fname}</MDBTypography>
+                                            <MDBTypography tag="h5">Mr.Mukesh</MDBTypography>
                                             <MDBCardText>Surat</MDBCardText>
                                         </div>
                                     </div>

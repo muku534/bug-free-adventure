@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { createBrowserRouter, RouterProvider, } from 'react-router-dom';
+import { createBrowserRouter, Route, Router, RouterProvider, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 // import { CssBaseline, ThemeProvider } from '@mui/material';
@@ -25,6 +25,7 @@ import PageNotFound from './Componets/PageNotFound';
 import AdminLogin from './Admin/AdminLogin';
 import AdminSignup from './Admin/AdminSignup';
 
+
 // root routes 
 const router = createBrowserRouter([
   { path: "/", element: <> <NavbarC /> <Category /> <Card /> <Footer /> </> },
@@ -46,11 +47,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
+
       <RouterProvider router={router} />
+
+
     </>
   );
-}
-
-
-
+};
 export default App;
