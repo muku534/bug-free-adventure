@@ -4,11 +4,11 @@ import { createBrowserRouter, Route, Router, RouterProvider, Routes } from 'reac
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 // import { CssBaseline, ThemeProvider } from '@mui/material';
-import Card from './Componets/Card';
+import Home from './Componets/Home';
 import Footer from './Componets/Footer';
 import Signin from './Componets/Signin';
 import Signup from './Componets/Signup';
-// import Item from './Componets/Product';
+// import Item from './Componets/SingleProduct';
 import About from './Componets/About';
 import Category from './Componets/Category';
 import NavbarC from './Componets/NavbarC';
@@ -18,7 +18,7 @@ import ContactUs from './Componets/ContactUs';
 
 // import Alert from './Componets/Alert';
 import Cart from './Componets/Cart';
-import Product from './Componets/Product';
+import SingleProduct from './Componets/SingleProduct';
 import ResetPassword from './Componets/ResetPassword';
 import Profile from './Componets/Profile';
 import PageNotFound from './Componets/PageNotFound';
@@ -28,10 +28,10 @@ import AdminSignup from './Admin/AdminSignup';
 
 // root routes 
 const router = createBrowserRouter([
-  { path: "/", element: <> <NavbarC /> <Category /> <Card /> <Footer /> </> },
+  { path: "/", element: <> <NavbarC /> <Category /> <Home /> <Footer /> </> },
   { path: "/Signin", element: <> <NavbarC /> <Signin /> </> },
   { path: "/Signup", element: <> <NavbarC /> <Signup /> </> },
-  { path: "/Product", element: <> <NavbarC /> <Product /> </> },
+  { path: "/SingleProduct/:id", element: <> <NavbarC /> <SingleProduct /> </> },
   { path: "/Profile", element: <> <NavbarC /> <Profile /> </> },
   { path: "/ContactUs", element: <> <NavbarC /> <ContactUs /> </> },
   { path: "/officeLaptop", element: <> <NavbarC /> <OfficeLaptop /> </> },

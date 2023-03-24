@@ -1,10 +1,16 @@
+import {
+  PRODUCT_DETAILS_FAILURE,
+  PRODUCT_DETAILS_REQUEST,
+  PRODUCT_DETAILS_SUCCESS,
+} from "../../Actions/productActions";
+
 const initialState = {
   products: [], // List of all products
   loading: false,
   error: null
 };
 
-const productReducer = (state = initialState, action) => {
+export const productReducer = (state = { Products: [] }, action) => {
   switch (action.type) {
     case "FETCH_PRODUCTS_REQUEST":
       return {
@@ -17,18 +23,43 @@ const productReducer = (state = initialState, action) => {
         ...state,
         // products: action.payload.productsCount,
         loading: false,
-        products: action.payload.products
-        // error: null
+        products: action.payload,
+        error: null
       };
     case "FETCH_PRODUCTS_FAILURE":
       return {
         ...state,
         loading: false,
-        error: action.payload
+        error: action.payload,
       };
+
     default:
       return state;
   }
 };
 
-export default productReducer;
+// export default productReducer;
+
+export const ProductDetailsReducers = (state = { Products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_DETAILS_REQUEST:
+      return {
+        ...state,
+        loding: true
+      }
+    case PRODUCT_DETAILS_SUCCESS:
+      return {
+        // ...state,
+        loding: false,
+        product: action.payload
+      }
+    case PRODUCT_DETAILS_FAILURE:
+      return {
+        ...state,
+        error: null
+      }
+
+    default:
+      return state
+  }
+};

@@ -6,28 +6,55 @@ export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
 export const ADD_PRODUCT_REQUEST = 'ADD_PRODUCT_REQUEST';
 export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
 export const ADD_PRODUCT_FAILURE = 'ADD_PRODUCT_FAILURE';
+export const PRODUCT_DETAILS_REQUEST = 'PRODUCT_DETAILS_REQUEST';
+export const PRODUCT_DETAILS_SUCCESS = 'PRODUCT_DETAILS_SUCCESS';
+export const PRODUCT_DETAILS_FAILURE = 'PRODUCT_DETAILS_FAILURE';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 // action creator for fetching all products
-export const fetchProducts = () => {
-  return (dispatch) => {
+export const fetchProducts = () => async (dispatch) => {
+  try {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
 
-    axios.get('/getProducts')
-      .then((response) => {
-        const products = response.data;
-        dispatch({
-          type: FETCH_PRODUCTS_SUCCESS,
-          payload: products,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: FETCH_PRODUCTS_FAILURE,
-          payload: error.respose.data.message,
-        });
-      });
-  };
+    const { data } = await axios.get('/getProducts')
+
+    dispatch({
+      type: FETCH_PRODUCTS_SUCCESS,
+      payload: data,
+    });
+
+  } catch (error) {
+    dispatch({
+      type: FETCH_PRODUCTS_FAILURE,
+      payload: error.respose.data.message,
+    });
+  }
 };
+
+
+
+//fetch the product details
+export const fetchProductsDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_DETAILS_REQUEST });
+
+    const { data } = await axios.get(`/getSingleProducts${id}`);
+
+
+    dispatch({
+      type: PRODUCT_DETAILS_SUCCESS,
+      payload: data.products,
+    });
+
+  } catch (error) {
+    dispatch({
+      type: FETCH_PRODUCTS_FAILURE,
+      payload: error.respose.data.message,
+    })
+  }
+};
+
+
 
 // action creator for adding a product
 export const addProduct = (product) => {
@@ -50,3 +77,5 @@ export const addProduct = (product) => {
       });
   };
 };
+
+

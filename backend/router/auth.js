@@ -8,7 +8,7 @@ const User = require('../model/UserDetails');
 const Product = require('../model/ProductDetails');
 const Order = require('../model/OrderDetails')
 const Authentication = require('../middleware/Authentication');
-
+const APIFeatures = require('../utils/APIFeatures')
 
 //signup
 router.post("/signup", async (req, res,) => {
@@ -205,11 +205,21 @@ router.post("/Product", async (req, res, next) => {
 //get all products
 router.get("/getProducts", async (req, res, next) => {
 
-    const Products = await Product.find();
+
+    const resPerPage = 16;
+    const productsCount = await Product.countDocuments();
+
+    const apiFeatures = new APIFeatures(Product.find(), req.query)
+        .search()
+        .filter()
+        .pagination(resPerPage)
+
+    const Products = await apiFeatures.query;
 
     res.status(200).json({
         success: true,
         count: Products.length,
+        productsCount,
         Products
     })
 })
