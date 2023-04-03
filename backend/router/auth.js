@@ -175,21 +175,22 @@ router.put("/updateProfile", Authentication, async (req, res, next) => {
 })
 
 // //update OR change the Previous Password not Working
-// router.put("/updatePassword", Authentication, async (req, res, next) => {
-//     const password = req.body
-//     const user = await User.findById(req.rootUser).select("+password");
+router.put("/updatePassword", Authentication, async (req, res, next) => {
+    const { oldPassword, newPassword } = req.body;
+    const user = await User.findById(req.rootUser).select("+password");
 
-//     //check previous user password 
-//     const isMatched = await bcrypt.compare(password, user.password)
-//     if (!isMatched) {
-//         return next("Old Password is Incorrect");
-//     }
+    //check previous user password 
+    const isMatched = await bcrypt.compare(oldPassword, user.password)
+    if (!isMatched) {
+        return res.status(400).json({ message: "Old Password is Incorrect" });
+    }
 
-//     // user.password = req, body.password;
-//     await user.save();
+    user.password = newPassword;
+    await user.save();
 
-//     sendToken(user, 200, res)
-// })
+    sendToken(user, 200, res)
+})
+
 
 // add products
 router.post("/Product", async (req, res, next) => {
@@ -220,12 +221,13 @@ router.get("/getProducts", async (req, res, next) => {
         success: true,
         count: Products.length,
         productsCount,
+        resPerPage,
         Products
     })
 })
 
 //get single product
-router.get("/getSingleProducts/:id", async (req, res, next) => {
+router.get("/ProductDetails/:id", async (req, res, next) => {
     const getSingleProducts = await Product.findById(req.params.id);
 
     if (!getSingleProducts) {
@@ -267,23 +269,26 @@ router.put("/updateProducts/:id", async (req, res, next) => {
 
 //delete products
 router.delete("/deleteProducts/:id", async (req, res, next) => {
+    try {
+        const product = await Product.findById(req.params.id);
 
-    const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
 
-    if (!product) {
-        return res.status(404).json({
-            success: false,
-            message: "Product not Found"
-        })
+        await product.remove();
+
+        res.status(200).json({
+            success: true,
+            message: "Product is deleted successfully"
+        });
+    } catch (err) {
+        next(err);
     }
-
-    await Product.remove();
-
-    res.status(200).json({
-        success: true,
-        message: "product is Deleted Sucessfully"
-    })
-})
+});
 
 
 //create new order
@@ -347,34 +352,44 @@ router.get("/allOrders", Authentication, async (req, res, next) => {
 
 //update process of order Work in progress
 router.put("/updateOrders/:id", Authentication, async (req, res, next) => {
-    const order = await Order.find({ User: req.rootUser })
-    // const order = await Order.findById(req.params.id)
+    try {
+        const order = await Order.findOne({ _id: req.params.id, User: req.rootUser });
 
-    if (order.orderStatus === 'Delivered') {
-        return next("You Have already delivered thisorder", 400)
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: "Order not found"
+            });
+        }
+
+        if (order.orderStatus === "Delivered") {
+            return next(new Error("You have already delivered this order"));
+        }
+
+        for (const item of order.orderItems) {
+            await updateStock(item.product, item.quantity);
+        }
+
+        order.orderStatus = req.body.orderStatus;
+        order.deliveredAt = Date.now();
+
+        await order.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Order updated successfully"
+        });
+    } catch (err) {
+        next(err);
     }
-
-    order.orderItems.forEach(async item => {
-        await updateStock(item.product, item.quantity)
-    })
-
-    order.orderStatus = req.body.orderStatus,
-        order.delieverdAt = Date.now()
-
-    await order.save()
-
-    res.status(200).json({
-        success: true,
-
-    })
-})
+});
 
 async function updateStock(id, quantity) {
     const product = await Product.findById(id);
 
-    product.stock = product.stock - quantity;
+    product.stock -= quantity;
 
-    await product.save({ validateBeforeSave: false })
+    await product.save({ validateBeforeSave: false });
 }
 
 // delete the orders
@@ -398,30 +413,30 @@ router.put("/reviews", Authentication, async (req, res, next) => {
 
     const review = {
         user: req.rootUser._id,
-        fname: req.body.fname,
-        ratings: Number(rating),
+        fname: req.body.firstName, // change to the correct property name
+        rating: Number(rating), // fix typo in property name
         comment
     }
 
     const product = await Product.findById(ProductId);
 
-    const isReviewed = product.reviews.find(
-        r => r.user.toString() === req.rootuser._id.toString()
+    const existingReview = product.reviews.find(
+        r => r.user.toString() === req.rootUser._id.toString()
     )
 
-    if (isReviewed) {
-        product.reviews.forEach(review => {
-            if (review.user.toString() === req.rootUser._id.toString()) {
-                review.Comment = comment;
-                review.rating = rating;
-            }
-        })
+    if (existingReview) {
+        existingReview.comment = comment;
+        existingReview.rating = rating;
     } else {
         product.reviews.push(review);
-        product.numofReviews = product.reviews.length
+        product.numofReviews += 1; // only update when a new review is added
     }
 
-    product.ratings = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length
+    if (product.reviews.length > 0) {
+        product.ratings = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+    } else {
+        product.ratings = 0; // set to 0 if there are no reviews
+    }
 
     await product.save({ validateBeforeSave: false });
 
@@ -429,4 +444,5 @@ router.put("/reviews", Authentication, async (req, res, next) => {
         success: true
     })
 })
+
 module.exports = router;

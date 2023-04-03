@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   admin: adminReducer,
   user: userReducer,
   product: productReducer,
-  ProductDetailsReducers: ProductDetailsReducers
+  ProductDetails: ProductDetailsReducers
 });
 
 const middleware = [thunk];

@@ -18,12 +18,15 @@ import ContactUs from './Componets/ContactUs';
 
 // import Alert from './Componets/Alert';
 import Cart from './Componets/Cart';
-import SingleProduct from './Componets/SingleProduct';
+// import ProductDetails from './Componets/ProductDetails';
 import ResetPassword from './Componets/ResetPassword';
 import Profile from './Componets/Profile';
 import PageNotFound from './Componets/PageNotFound';
 import AdminLogin from './Admin/AdminLogin';
 import AdminSignup from './Admin/AdminSignup';
+import ProductDetails from './Componets/ProductDetails';
+import Dashboard from './Admin/Dashboard';
+import Sidebar from './Admin/Sidebar';
 
 
 // root routes 
@@ -31,7 +34,7 @@ const router = createBrowserRouter([
   { path: "/", element: <> <NavbarC /> <Category /> <Home /> <Footer /> </> },
   { path: "/Signin", element: <> <NavbarC /> <Signin /> </> },
   { path: "/Signup", element: <> <NavbarC /> <Signup /> </> },
-  { path: "/SingleProduct/:id", element: <> <NavbarC /> <SingleProduct /> </> },
+  { path: "/ProductDetails/:id", element: <> <NavbarC /> <ProductDetails /> </> },
   { path: "/Profile", element: <> <NavbarC /> <Profile /> </> },
   { path: "/ContactUs", element: <> <NavbarC /> <ContactUs /> </> },
   { path: "/officeLaptop", element: <> <NavbarC /> <OfficeLaptop /> </> },
@@ -41,6 +44,7 @@ const router = createBrowserRouter([
   { path: "/ResetPassword", element: <> <NavbarC /> <ResetPassword /> </> },
   { path: "/AdminLogin", element: <AdminLogin /> },
   { path: "/AdminSignup", element: <AdminSignup /> },
+  { path: "/Dashboard", element: <> <Dashboard /> </> },
   { path: "*", element: <> <PageNotFound /> </> },
 ])
 

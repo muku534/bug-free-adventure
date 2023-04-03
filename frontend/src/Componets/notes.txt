@@ -1,0 +1,57 @@
+// // add prodcut
+
+// {
+
+//   "name": "",
+//   "price": "50000",
+//   "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+//   "ratings": "5.0",
+//   "images": {
+//     "public_id": "images_lneu2x",
+//     "url": " https://res.cloudinary.com/dkkj6aflt/image/upload/v1674198933/images_lneu2x.png"
+//   },
+//   "category":"Laptop",
+//   "stock":"150",
+//   "numofReviews":"125",
+//   "reviews":[]
+// }
+
+// // search product using this api
+
+// http://localhost:5000/getProducts?keyword=Lenovo&category=Laptop&price[gte]=1&price[lte]=50000?page=1
+
+
+// // new ordr
+// {
+//   "ShippingInfo": {
+//     "address": "mahadev resi, surat",
+//     "city": "surat",
+//     "PhoneNo": "8238272244",
+//     "postalCode": "394327",
+//     "country": "india"
+//   },
+//   "user": {
+//     "_id": "63d9137d1a5e2c62f14f9205"
+//   },
+//   "orderItems": [
+//     {
+//       "name": "Lenovo - Flex 3 ChromeBook",
+//       "quantity": "5",
+//       "images": {
+//         "public_id": "images_lneu2x",
+//         "url": " https://res.cloudinary.com/dkkj6aflt/image/upload/v1674198933/images_lneu2x.png"
+//       },
+//       "price": "50000",
+//       "product": {
+//         "_id": "640b0928567d9b779599c076"
+//       }
+//     }
+//   ],
+//   "paymentInfo":{
+//     "itemPrice":"50000",
+//     "taxPrice":"200",
+//     "ShippingPrice":"60",
+//     "totalPrice":"50260"
+//   }
+// }
+

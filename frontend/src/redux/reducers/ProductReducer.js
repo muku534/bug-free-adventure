@@ -40,7 +40,7 @@ export const productReducer = (state = { Products: [] }, action) => {
 
 // export default productReducer;
 
-export const ProductDetailsReducers = (state = { Products: [] }, action) => {
+export const ProductDetailsReducers = (state = { Product: {} }, action) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
       return {
@@ -56,7 +56,7 @@ export const ProductDetailsReducers = (state = { Products: [] }, action) => {
     case PRODUCT_DETAILS_FAILURE:
       return {
         ...state,
-        error: null
+        error: action.payload
       }
 
     default:

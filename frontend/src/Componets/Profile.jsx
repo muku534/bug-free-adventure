@@ -5,7 +5,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 const Profile = () => {
 
     const Navigate = useNavigate();
-    const [userData, setUserData] = useState();
+    const [userData, setUserData] = useState({});
 
     const callProfilePage = async () => {
         try {
@@ -19,8 +19,8 @@ const Profile = () => {
             });
 
             const data = await res.json();
-            console.log(data)
-            setUserData(data);
+            setUserData(data.userData);
+            console.log(data.userData)
 
             if (!res.status === 200) {
                 const error = new Error(res.error);
@@ -41,6 +41,7 @@ const Profile = () => {
         <div>
             <div className="gradient-custom-2">
                 <form method='GET'>
+
                     <MDBContainer className="py-5 h-100 mt-5">
                         <MDBRow className="justify-content-center align-items-center h-100">
                             <MDBCol lg="9" xl="7">
@@ -54,7 +55,7 @@ const Profile = () => {
                                             </MDBBtn>
                                         </div>
                                         <div className="ms-3" style={{ marginTop: '130px' }}>
-                                            <MDBTypography tag="h5">Mr.Mukesh</MDBTypography>
+                                            <MDBTypography tag="h5"></MDBTypography>
                                             <MDBCardText>Surat</MDBCardText>
                                         </div>
                                     </div>
@@ -76,7 +77,8 @@ const Profile = () => {
                                     </div>
                                     <MDBCardBody className="text-black p-4">
                                         <div className="mb-5">
-                                            <table className="table ">
+                                            <table className="table 
+                                            ">
                                                 <tbody className="text-black">
                                                     <tr>
                                                         <td>Name :</td>

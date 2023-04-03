@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import '../App.css';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { useAlert } from 'react-alert';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -20,6 +21,28 @@ export default function NavbarC() {
     // const dispatch = useDispatch()
 
     // const { user, loading } = useSelector(state => state.auth)
+
+    const [keyword, setKeyword] = useState("");
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
+
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.get('http://localhost:5000/getProducts', {
+                params: {
+                    keyword,
+                    category: 'Laptop',
+                    'price[gte]': minPrice,
+                    'price[lte]': maxPrice,
+                    page: 1
+                }
+            });
+            console.log(response.data); // do something with the response data
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <div>
             {['sm'].map((expand) => (
@@ -57,7 +80,7 @@ export default function NavbarC() {
                                         </NavDropdown.Item>
                                     </NavDropdown>
                                     <NavDropdown
-                                        title="Mr.Mukesh"
+                                        title="AboutMe"
                                         id={`offcanvasNavbarDropdown-expand-OnSelect-${expand}`}
                                     >
                                         <NavDropdown.Item href="/Profile">My Profile</NavDropdown.Item>
@@ -71,16 +94,17 @@ export default function NavbarC() {
                                     </NavDropdown>
                                 </Nav>
                                 <MDBIcon fas icon="shopping-cart" />
-                                <Form className="d-flex">
-                                    {/* <Form.Control
+                                <Form className="d-flex" >
+                                    <Form.Control
                                         type="search"
                                         placeholder="Search"
                                         className="me-2"
                                         aria-label="Search"
+                                        
                                     />
-                                        <Button variant="outline-success">Search</Button> */}
+                                    <Button variant="outline-success" onClick={handleSearch}>Search</Button>
 
-
+                                 
                                     <Link to={"/Signin"}>
                                         <Button variant="outline-success" className="ml-2" >Signin</Button>
                                     </Link>

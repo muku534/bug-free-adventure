@@ -1,14 +1,22 @@
 const initialState = {
     user: null,
     isAuthenticated: false,
-    profile: null,
+    profile: [],
     products: [],
     cart: [],
     orders: [],
+    loading: false,
+    error:null
   };
   
   const userReducer = (state = initialState, action) => {
     switch (action.type) {
+      case "SIGNUP_REQUEST":
+        return{
+          ...state,
+          loading:true,
+          profile:null
+        }
       case "SIGNUP_SUCCESS":
         return {
           ...state,

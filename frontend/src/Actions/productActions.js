@@ -9,7 +9,8 @@ export const ADD_PRODUCT_FAILURE = 'ADD_PRODUCT_FAILURE';
 export const PRODUCT_DETAILS_REQUEST = 'PRODUCT_DETAILS_REQUEST';
 export const PRODUCT_DETAILS_SUCCESS = 'PRODUCT_DETAILS_SUCCESS';
 export const PRODUCT_DETAILS_FAILURE = 'PRODUCT_DETAILS_FAILURE';
-export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const ADD_TO_CART = 'ADD_TO_CART';
 
 // action creator for fetching all products
 export const fetchProducts = () => async (dispatch) => {
@@ -38,17 +39,17 @@ export const fetchProductsDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/getSingleProducts${id}`);
+    const { data } = await axios.get(`/getSingleProducts/${id}`)
 
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
-      payload: data.products,
+      payload: data.product,
     });
 
   } catch (error) {
     dispatch({
-      type: FETCH_PRODUCTS_FAILURE,
+      type: PRODUCT_DETAILS_FAILURE,
       payload: error.respose.data.message,
     })
   }
@@ -79,3 +80,10 @@ export const addProduct = (product) => {
 };
 
 
+//clear Errors
+
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS
+  })
+}

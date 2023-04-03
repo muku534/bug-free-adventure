@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../Actions/productActions';
@@ -9,43 +10,70 @@ import { useAlert } from 'react-alert';
 
 
 const Home = () => {
-    const alert = useAlert;
-    const dispatch = useDispatch();
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage, setProductsPerPage] = useState(8);
 
-    const { loading, products, error } = useSelector(state => {
-        console.log('product state:', state.product.products);
-        return state.product;
-    });
-
-    useEffect(() => {
-
-        if (error) {
-            alert.error(error)
-        }
-
-        console.log('Fetching products...')
-        dispatch(fetchProducts());
-
-    }, [dispatch, alert, error]);
+    const getData = () => {
+        axios
+            .get(`http://localhost:5000/getProducts`)
+            .then((res) => {
+                setProducts(res.data.Products);
+                setLoading(false);
+                // console.log(res.data.Products)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
 
-    // console.log({ loading, products, error });
+    React.useEffect(getData, []);
 
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    const productsCount = products.length;
 
     return (
-        
+
         <div className="container">
             <div className="row">
                 {loading ? (
                     <Loader />
                 ) :
                     Array.isArray(products) && products.length > 0 ? (
-                        products.map((product) => (
-                            <div className="col-md-3" key={product._id}>
-                                <Product product={product} />
+                        currentProducts.map((product, id) => (
+                            <div key={product._id} className="col-lg-3 mt-5">
+                                <Link to={`/ProductDetails/${product._id}`} className="nav-link">
+                                    <Product product={product} />
+                                </Link>
                             </div>
-                        ))) : (<h5>No products to display</h5>
-                    )}
+                        )))
+                        : (<h5>No products to display</h5>
+                        )}
+                {/* {products.map((product, index) => (
+                    <Product key={index} product={product} />
+                )
+                )} */}
+            </div>
+
+            <div className="d-flex justify-content-center mt-5">
+                <nav>
+                    <ul className="pagination">
+                        {Array.from({ length: Math.ceil(productsCount / productsPerPage) }, (_, i) => i + 1).map((pageNumber) => (
+                            <li key={pageNumber} className={`page-item ${pageNumber === currentPage ? 'active' : ''}`}>
+                                <a onClick={() => paginate(pageNumber)} href="#" className="page-link">
+                                    {pageNumber}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
             </div>
         </div>
     );
