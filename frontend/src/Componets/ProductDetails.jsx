@@ -126,7 +126,7 @@ const ProductDetails = () => {
                       <span className='btn btn-primary plus' onClick={increaseQty}>+</span>
 
                     </div> <br />
-                    <Link to={'/Cart'}>
+                    <Link to={`/Cart/${product._id}`}>
                       <button className="cart" type="submit" onClick={addToCart}>
                         Add to cart
                       </button>
