@@ -19,8 +19,8 @@ const Profile = () => {
             });
 
             const data = await res.json();
-            setUserData(data.userData);
-            console.log(data.userData)
+            setUserData(data);
+            console.log(data)
 
             if (!res.status === 200) {
                 const error = new Error(res.error);
@@ -82,11 +82,11 @@ const Profile = () => {
                                                 <tbody className="text-black">
                                                     <tr>
                                                         <td>Name :</td>
-                                                        <td>Mr.Mukesh</td>
+                                                        <td>{userData.fname}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Email :</td>
-                                                        <td>mukesh@gmail.com</td>
+                                                        <td>{userData.email}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Gender :</td>

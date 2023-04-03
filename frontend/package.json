@@ -28,6 +28,7 @@
     "apexcharts": "^3.37.0",
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
+    "cdbreact": "^1.5.10",
     "chart.js": "^4.2.0",
     "formik": "^2.2.9",
     "jsonwebtoken": "^9.0.0",
