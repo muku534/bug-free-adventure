@@ -11,15 +11,17 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-// import { useSelector, useDispatch } from 'react-redux'
-// import { UserLogout,} from '../redux/Action/userAction'
+import { useSelector, useDispatch } from 'react-redux'
+import { useAlert } from 'react-alert';
+// import { UserLogout, } from '../redux/Action/userAction'
+
 // import store from '../validation/store'
 import { MDBIcon } from 'mdb-react-ui-kit';
 export default function NavbarC() {
 
-    // const alert = useAlert();
-    // const dispatch = useDispatch()
-
+    const alert = useAlert();
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     // const { user, loading } = useSelector(state => state.auth)
 
     const [keyword, setKeyword] = useState("");
@@ -39,6 +41,18 @@ export default function NavbarC() {
                 }
             });
             console.log(response.data); // do something with the response data
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            const response = await axios.post('http://localhost:5000/logout');
+            console.log(response.data); // do something with the response data
+            // dispatch(UserLogout());
+            alert.success('Logout successfully');
+            navigate('/')
         } catch (error) {
             console.error(error);
         }
@@ -88,7 +102,7 @@ export default function NavbarC() {
                                             Settings
                                         </NavDropdown.Item>
                                         <NavDropdown.Divider />
-                                        <NavDropdown.Item href="#action5">
+                                        <NavDropdown.Item href="#action5" onClick={handleLogout}>
                                             Logout
                                         </NavDropdown.Item>
                                     </NavDropdown>
@@ -100,11 +114,11 @@ export default function NavbarC() {
                                         placeholder="Search"
                                         className="me-2"
                                         aria-label="Search"
-                                        
+
                                     />
                                     <Button variant="outline-success" onClick={handleSearch}>Search</Button>
 
-                                 
+
                                     <Link to={"/Signin"}>
                                         <Button variant="outline-success" className="ml-2" >Signin</Button>
                                     </Link>
