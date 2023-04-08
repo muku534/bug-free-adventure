@@ -1,5 +1,38 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom'
 const EditProfile = () => {
+    const Navigate = useNavigate();
+    const [userData, setUserData] = useState({});
+
+    const callProfilePage = async () => {
+        try {
+            const res = await fetch('/profile', {
+                method: "GET",
+                headers: {
+                    Accept: "appllication/json",
+                    "Content-Type": "application/json"
+                },
+                credentials: "include"
+            });
+
+            const data = await res.json();
+            setUserData(data);
+            console.log(data)
+
+            if (!res.status === 200) {
+                const error = new Error(res.error);
+                throw error;
+            }
+
+        } catch (err) {
+            console.log(err);
+            Navigate('/Signin');
+        }
+    }
+
+    useEffect(() => {
+        callProfilePage();
+    }, [])
     return (
         <>
 
@@ -9,7 +42,7 @@ const EditProfile = () => {
                     <div className="col-xs-12 col-sm-9">
                         <form className="form-horizontal">
                             <div className="panel panel-default">
-                                <div className="panel-body text-center">
+                                <div className="panel-body text-center" >
                                     <img src="https://bootdey.com/img/Content/avatar/avatar6.png" className="img-circle profile-avatar" alt="User avatar" />
                                 </div>
                             </div>
@@ -66,7 +99,7 @@ const EditProfile = () => {
                                     <div className="form-group">
                                         <label className="col-sm-2 control-label">E-mail address</label>
                                         <div className="col-sm-10">
-                                            <input type="email" className="form-control" />
+                                            <input type="email" className="form-control"  value={userData.email}/>
                                         </div>
                                     </div>
                                     <div className="form-group">

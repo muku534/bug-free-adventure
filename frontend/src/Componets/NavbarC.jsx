@@ -60,7 +60,7 @@ export default function NavbarC() {
     return (
         <div>
             {['sm'].map((expand) => (
-                <Navbar key={expand} bg="dark" variant="dark" expand={expand} fixed="top">
+                <Navbar key={expand} bg="dark" variant="dark" expand={expand} >
                     <Container fluid>
                         <Navbar.Brand href="#">SCS</Navbar.Brand>
                         <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />

@@ -12,13 +12,21 @@ const morgan = require('morgan')
 const Signin = require('./api/Signin')
 const Signup = require('./api/Signup')
 const cookieparser = require('cookie-parser')
+const bodyparser = require('body-parser')
+const cloudinary = require('cloudinary')
 // app.set("view engine", "ejs");
 
 
 app.use(express.json());
-
+app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cookieparser());
 
+//setting up cloudinary
+cloudinary.config({
+    cloud_name: process.env_CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET   
+})
 /** middlewares */
 app.use(cors());
 app.use(morgan('tiny'));

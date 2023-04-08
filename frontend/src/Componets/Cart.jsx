@@ -209,8 +209,10 @@ const Cart = () => {
                             <h5>{product.price}</h5>
                           </div>
 
-                          <button type="button" className="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Buy
-                            Now</button>
+                          <Link to={'/CheckOut'}>
+                            <button type="button" className="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Buy
+                              Now</button>
+                          </Link>
 
                         </div>
                       </div>

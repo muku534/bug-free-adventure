@@ -51,7 +51,7 @@ const Profile = () => {
                                             <MDBCardImage src=""
                                                 alt="Generic placeholder image" className="mt-4 mb-2 img-thumbnail" fluid style={{ width: '150px', zIndex: '1' }} />
                                             <Link to={'/EditProfile'}>
-                                                <MDBBtn outline color="dark" className="customClass" style={{ height: '36px', overflow: 'visible' }} >
+                                                <MDBBtn outline color="dark" className="customClass" style={{ height: '36px', overflow: 'visible' }} userData={userData} >
                                                     Edit profile
                                                 </MDBBtn>
                                             </Link>

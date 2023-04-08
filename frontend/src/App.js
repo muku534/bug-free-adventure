@@ -30,6 +30,7 @@ import Sidebar from './Admin/Sidebar';
 import Orders from './Componets/Orders';
 import Slider from './Componets/Slider';
 import EditProfile from './Componets/EditProfile';
+import CheckOut from './Componets/CheckOut';
 
 
 // root routes 
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
   { path: "/GamingLaptop", element: <> <NavbarC /> <Category /> <GamingLaptop /> <Footer /> </> },
   { path: "/About", element: <> <NavbarC /> <About /> </> },
   { path: "/Cart", element: <> <NavbarC /> <Cart /> </> },
+  { path: "/CheckOut", element: <> <NavbarC /> <CheckOut /> </> },
   { path: "/Orders", element: <> <NavbarC /> <Orders /> </> },
   { path: "/ResetPassword", element: <> <NavbarC /> <ResetPassword /> </> },
   { path: "/AdminLogin", element: <AdminLogin /> },

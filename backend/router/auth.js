@@ -10,11 +10,18 @@ const Order = require('../model/OrderDetails');
 const Cart = require('../model/CartDetails')
 const Authentication = require('../middleware/Authentication');
 const APIFeatures = require('../utils/APIFeatures')
+const cloudinary = require('cloudinary')
 
 //signup
 router.post("/signup", async (req, res,) => {
     const { fname, lname, email, password, avatar } = req.body;
     const encryptedpassword = await bcrypt.hash(password, 8);
+    const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: 'avatars',
+        width: 150,
+        crop: "scale"
+
+    })
     User.findOne({ email: email }, async (_err, user) => {
         if (user) {
             res.send({ message: "User already registerd" })
@@ -25,8 +32,8 @@ router.post("/signup", async (req, res,) => {
                 email,
                 password: encryptedpassword,
                 avatar: {
-                    public_id: "images_lneu2x",
-                    url: " https://res.cloudinary.com/dkkj6aflt/image/upload/v1674198933/images_lneu2x.png"
+                    public_id: result.public_id,
+                    url: result.secure_url
                 }
             })
             // const picture = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' })
