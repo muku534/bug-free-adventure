@@ -50,9 +50,11 @@ const Profile = () => {
                                         <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
                                             <MDBCardImage src=""
                                                 alt="Generic placeholder image" className="mt-4 mb-2 img-thumbnail" fluid style={{ width: '150px', zIndex: '1' }} />
-                                            <MDBBtn outline color="dark" className="customClass" style={{ height: '36px', overflow: 'visible' }}>
-                                                Edit profile
-                                            </MDBBtn>
+                                            <Link to={'/EditProfile'}>
+                                                <MDBBtn outline color="dark" className="customClass" style={{ height: '36px', overflow: 'visible' }} >
+                                                    Edit profile
+                                                </MDBBtn>
+                                            </Link>
                                         </div>
                                         <div className="ms-3" style={{ marginTop: '130px' }}>
                                             <MDBTypography tag="h5"></MDBTypography>

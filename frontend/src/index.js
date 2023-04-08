@@ -18,14 +18,14 @@ const options = {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store} >
+  < Provider store={store} >
     <React.StrictMode>
       <AlertProvider template={AlertTemplate} {...options}>
         <App />
       </AlertProvider>
       {/* <Layout /> */}
     </React.StrictMode>
-  // </Provider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

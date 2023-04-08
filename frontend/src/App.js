@@ -27,20 +27,25 @@ import AdminSignup from './Admin/AdminSignup';
 import ProductDetails from './Componets/ProductDetails';
 import Dashboard from './Admin/Dashboard';
 import Sidebar from './Admin/Sidebar';
+import Orders from './Componets/Orders';
+import Slider from './Componets/Slider';
+import EditProfile from './Componets/EditProfile';
 
 
 // root routes 
 const router = createBrowserRouter([
-  { path: "/", element: <> <NavbarC /> <Category /> <Home /> <Footer /> </> },
+  { path: "/", element: <> <NavbarC /> <Slider /> <Category /> <Home /> <Footer /> </> },
   { path: "/Signin", element: <> <NavbarC /> <Signin /> </> },
   { path: "/Signup", element: <> <NavbarC /> <Signup /> </> },
   { path: "/ProductDetails/:id", element: <> <NavbarC /> <ProductDetails /> </> },
   { path: "/Profile", element: <> <NavbarC /> <Profile /> </> },
+  { path: "/EditProfile", element: <> <NavbarC /> <EditProfile /> </> },
   { path: "/ContactUs", element: <> <NavbarC /> <ContactUs /> </> },
-  { path: "/officeLaptop", element: <> <NavbarC /> <OfficeLaptop /> </> },
-  { path: "/GamingLaptop", element: <> <NavbarC /> <GamingLaptop /> </> },
+  { path: "/officeLaptop", element: <> <NavbarC /> <Category /> <OfficeLaptop /> <Footer /> </> },
+  { path: "/GamingLaptop", element: <> <NavbarC /> <Category /> <GamingLaptop /> <Footer /> </> },
   { path: "/About", element: <> <NavbarC /> <About /> </> },
-  { path: "/Cart/:id", element: <> <NavbarC /> <Cart /> </> },
+  { path: "/Cart", element: <> <NavbarC /> <Cart /> </> },
+  { path: "/Orders", element: <> <NavbarC /> <Orders /> </> },
   { path: "/ResetPassword", element: <> <NavbarC /> <ResetPassword /> </> },
   { path: "/AdminLogin", element: <AdminLogin /> },
   { path: "/AdminSignup", element: <AdminSignup /> },

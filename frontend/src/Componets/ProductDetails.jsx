@@ -11,7 +11,8 @@ import { useNavigate } from 'react-router-dom';
 const ProductDetails = () => {
 
   const [cart, setCart] = useState([]);
-
+  // const user = useSelector(state => state.user);
+  const alert = useAlert();
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
@@ -50,19 +51,26 @@ const ProductDetails = () => {
     setQuantity(qty)
   }
 
-
-
   const addToCart = () => {
-    const productToAdd = { ...product._id, quantity };
-    setCart((prevCart) => [...prevCart, productToAdd]);
-    // localStorage.setItem('cartItems', JSON.stringify(cart));
-    // console.log(productToAdd)
-    navigate('/Cart')
+    const data = {
+      product: product._id,
+      // rootUser: user._id,
+      quantity,
+      price: product.price
+    };
+
+    axios.post('http://localhost:5000/add-to-cart', data)
+      .then(res => {
+        setCart(res.data.AddToCart);
+        console.log(res.data.AddToCart)
+        alert.success('Product added to cart!');
+      })
+      .catch(err => {
+        console.log(err);
+        alert.error('Error adding product to cart!');
+      });
   };
 
-  useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cart));
-  }, [cart]);
 
   return (
     <>
@@ -113,10 +121,10 @@ const ProductDetails = () => {
                       Ram Memory Installed Size : 4 GB
                     </p>
 
-                    <div className="thumb">
+                    <div className="thumb" style={{ width: "150px", }} >
                       {product.images &&
                         product.images.map((image, index) => (
-                          <img key={index} src={image.url} alt={product.name} />
+                          <img key={index} src={image.url} alt={product.name} style={{ width: "100px", height: "100px" }} />
                         ))}
                     </div>
                     <div className='stockCounter d-inline-block'>
@@ -126,7 +134,7 @@ const ProductDetails = () => {
                       <span className='btn btn-primary plus' onClick={increaseQty}>+</span>
 
                     </div> <br />
-                    <Link to={`/Cart/${product._id}`}>
+                    <Link >
                       <button className="cart" type="submit" onClick={addToCart}>
                         Add to cart
                       </button>

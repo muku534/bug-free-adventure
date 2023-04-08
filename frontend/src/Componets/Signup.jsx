@@ -121,6 +121,8 @@ const Signup = () => {
               <button type="submit" className="btn btn-primary btn-block mb-4" >Sign up</button>
               <p className="medium fw-bold mt-2 pt-1 mb-0">you already have an account? <a href="Signin"
                 className="link-primary">Signin</a></p>
+              <p className="medium fw-bold mt-2 pt-1 mb-0">become a seller? <a href="Signin"
+                className="link-primary">Signup</a></p>
             </div>
           </div>
         </div>

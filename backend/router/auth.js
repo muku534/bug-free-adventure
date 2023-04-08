@@ -6,7 +6,8 @@ const bcrypt = require('bcrypt')
 
 const User = require('../model/UserDetails');
 const Product = require('../model/ProductDetails');
-const Order = require('../model/OrderDetails')
+const Order = require('../model/OrderDetails');
+const Cart = require('../model/CartDetails')
 const Authentication = require('../middleware/Authentication');
 const APIFeatures = require('../utils/APIFeatures')
 
@@ -290,7 +291,46 @@ router.delete("/deleteProducts/:id", async (req, res, next) => {
     }
 });
 
+//add to cart 
+router.post('/add-to-cart', async (req, res) => {
+    const { product, rootUser, quantity, price } = req.body;
 
+    const AddToCart = await Cart.create({
+        product,
+        // user: req.rootUser,
+        quantity,
+        price,
+    })
+    res.status(200).json({
+        sucess: true,
+        AddToCart
+    })
+});
+
+//get add-to-cart product
+// router.get('/add-to-cart/product', Authentication, (req, res) => {
+//     // Get the product ID from the request parameters
+//     const productId = req.query.productId;
+
+//     // Query the database for the product with the given ID
+//     Product.findById(productId, (err, product) => {
+//         if (err) {
+//             console.log(err);
+//             res.status(500).send('Error retrieving product from cart');
+//         } else {
+//             res.status(200).json(product);
+//         }
+//     });
+// });
+
+
+router.get("/add-to-cart/:id", async (req, res, next) => {
+    const AddToCart = await Cart.find({ User: req.rootUser })
+    res.status(200).json({
+        success: true,
+        AddToCart
+    })
+})
 //create new order
 router.post("/newOrder", Authentication, async (req, res, next) => {
     const { orderItems,
@@ -314,6 +354,14 @@ router.post("/newOrder", Authentication, async (req, res, next) => {
         paidAt: Date.now(),
         user: req.rootUser
     })
+
+    // Decrease product stock
+    orderItems.forEach(async (item) => {
+        const product = await Product.findById(item.product);
+
+        product.stock -= item.qty;
+        await product.save();
+    });
 
     res.status(200).json({
         success: true,
@@ -371,7 +419,7 @@ router.put("/updateOrders/:id", Authentication, async (req, res, next) => {
         }
 
         order.orderStatus = req.body.orderStatus;
-        order.deliveredAt = Date.now();
+        order.delieverdAt = Date.now();
 
         await order.save();
 

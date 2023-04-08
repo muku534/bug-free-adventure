@@ -98,6 +98,12 @@ export default function NavbarC() {
                                         id={`offcanvasNavbarDropdown-expand-OnSelect-${expand}`}
                                     >
                                         <NavDropdown.Item href="/Profile">My Profile</NavDropdown.Item>
+                                        <NavDropdown.Item href="/Orders">
+                                            My Orders
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item href="/Cart">
+                                            My Cart
+                                        </NavDropdown.Item>
                                         <NavDropdown.Item href="#action4">
                                             Settings
                                         </NavDropdown.Item>
@@ -109,14 +115,14 @@ export default function NavbarC() {
                                 </Nav>
                                 <MDBIcon fas icon="shopping-cart" />
                                 <Form className="d-flex" >
-                                    <Form.Control
+                                    {/* <Form.Control
                                         type="search"
                                         placeholder="Search"
                                         className="me-2"
                                         aria-label="Search"
 
                                     />
-                                    <Button variant="outline-success" onClick={handleSearch}>Search</Button>
+                                    <Button variant="outline-success" onClick={handleSearch}>Search</Button> */}
 
 
                                     <Link to={"/Signin"}>
