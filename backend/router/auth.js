@@ -299,45 +299,73 @@ router.delete("/deleteProducts/:id", async (req, res, next) => {
 });
 
 //add to cart 
-router.post('/add-to-cart', async (req, res) => {
+router.post('/add-to-cart', Authentication, async (req, res) => {
     const { product, rootUser, quantity, price } = req.body;
 
-    const AddToCart = await Cart.create({
-        product,
-        // user: req.rootUser,
-        quantity,
-        price,
-    })
-    res.status(200).json({
-        sucess: true,
-        AddToCart
-    })
+    // Check if the product is already in the cart for this user
+    const existingCartItem = await Cart.findOne({ product, user: req.rootUser });
+    if (existingCartItem) {
+        // If the product is already in the cart, update the quantity
+        existingCartItem.quantity += quantity;
+        await existingCartItem.save();
+        res.status(200).json({
+            success: true,
+            message: 'Product quantity updated in cart',
+            cartItem: existingCartItem
+        });
+    } else {
+        // If the product is not in the cart, create a new cart item
+        const newCartItem = await Cart.create({
+            product,
+            user: req.rootUser,
+            quantity,
+            price
+        });
+        res.status(200).json({
+            success: true,
+            message: 'Product added to cart',
+            cartItem: newCartItem
+        });
+    }
 });
 
 //get add-to-cart product
-// router.get('/add-to-cart/product', Authentication, (req, res) => {
-//     // Get the product ID from the request parameters
-//     const productId = req.query.productId;
+router.get('/cart', Authentication, async (req, res) => {
+    try {
+        const cartItems = await Cart.find({ user: req.rootUser }).populate('product');
+        res.status(200).json({
+            success: true,
+            cartItems
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Unable to retrieve cart items'
+        });
+    }
+});
 
-//     // Query the database for the product with the given ID
-//     Product.findById(productId, (err, product) => {
-//         if (err) {
-//             console.log(err);
-//             res.status(500).send('Error retrieving product from cart');
-//         } else {
-//             res.status(200).json(product);
-//         }
-//     });
-// });
+//user can delete that cart product
+router.delete('/cart/:id', Authentication, async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedItem = await Cart.findByIdAndDelete(id);
+        res.status(200).json({
+            success: true,
+            message: 'Product removed from cart',
+            cartItem: deletedItem
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Could not remove product from cart',
+            error: error.message
+        });
+    }
+});
 
 
-router.get("/add-to-cart/:id", async (req, res, next) => {
-    const AddToCart = await Cart.find({ User: req.rootUser })
-    res.status(200).json({
-        success: true,
-        AddToCart
-    })
-})
 //create new order
 router.post("/newOrder", Authentication, async (req, res, next) => {
     const { orderItems,
@@ -366,6 +394,9 @@ router.post("/newOrder", Authentication, async (req, res, next) => {
     orderItems.forEach(async (item) => {
         const product = await Product.findById(item.product);
 
+        if (product.stock < item.qty) {
+            throw new Error(`Product ${product.name} has insufficient stock`);
+        }
         product.stock -= item.qty;
         await product.save();
     });
@@ -373,7 +404,7 @@ router.post("/newOrder", Authentication, async (req, res, next) => {
     res.status(200).json({
         success: true,
         order
-    })
+    });
 })
 
 

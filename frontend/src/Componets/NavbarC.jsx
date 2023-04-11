@@ -80,7 +80,7 @@ export default function NavbarC() {
                                     <Nav.Link href="/">Link</Nav.Link>
                                     <Nav.Link href="/About">About</Nav.Link>
                                     <Nav.Link href="/ContactUs">Contact</Nav.Link>
-                                    <NavDropdown
+                                    {/* <NavDropdown
                                         title="Dropdown"
                                         id={`offcanvasNavbarDropdown-expand-OnSelect-${expand}`}
                                     >
@@ -92,7 +92,7 @@ export default function NavbarC() {
                                         <NavDropdown.Item href="#action5">
                                             Something else here
                                         </NavDropdown.Item>
-                                    </NavDropdown>
+                                    </NavDropdown> */}
                                     <NavDropdown
                                         title="AboutMe"
                                         id={`offcanvasNavbarDropdown-expand-OnSelect-${expand}`}

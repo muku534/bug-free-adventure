@@ -14,6 +14,7 @@ const Signup = require('./api/Signup')
 const cookieparser = require('cookie-parser')
 const bodyparser = require('body-parser')
 const cloudinary = require('cloudinary')
+const fileupload = require('express-fileupload')
 // app.set("view engine", "ejs");
 
 
@@ -25,7 +26,7 @@ app.use(cookieparser());
 cloudinary.config({
     cloud_name: process.env_CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET   
+    api_secret: process.env.CLOUDINARY_API_SECRET
 })
 /** middlewares */
 app.use(cors());

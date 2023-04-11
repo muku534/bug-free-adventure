@@ -11,12 +11,13 @@ import { useNavigate } from 'react-router-dom';
 const ProductDetails = () => {
 
   const [cart, setCart] = useState([]);
-  // const user = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
   const alert = useAlert();
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(1);
+  const [price, setPrice] = useState(product.price);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -51,25 +52,22 @@ const ProductDetails = () => {
     setQuantity(qty)
   }
 
-  const addToCart = () => {
-    const data = {
-      product: product._id,
-      // rootUser: user._id,
-      quantity,
-      price: product.price
-    };
-
-    axios.post('http://localhost:5000/add-to-cart', data)
-      .then(res => {
-        setCart(res.data.AddToCart);
-        console.log(res.data.AddToCart)
-        alert.success('Product added to cart!');
-      })
-      .catch(err => {
-        console.log(err);
-        alert.error('Error adding product to cart!');
-      });
-  };
+  const addToCartHandler = () => {
+    if (user.userData && !user.userData.isAuth) {
+      alert.error('Please log in first.');
+      navigate('/login');
+    } else {
+      axios.post('/add-to-cart', { product: product._id, quantity, price })
+        .then((res) => {
+          setCart([...cart, res.data.cartItem]);
+          setPrice(res.data.price)
+          alert.success(res.data.message);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
 
 
   return (
@@ -135,7 +133,7 @@ const ProductDetails = () => {
 
                     </div> <br />
                     <Link >
-                      <button className="cart" type="submit" onClick={addToCart}>
+                      <button className="cart" type="submit" onClick={addToCartHandler} >
                         Add to cart
                       </button>
                     </Link>
