@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 const Product = ({ product }) => {
     return (
 
-        <div className="card">
+        <div className="card" style={{ border: "none", }}>
             <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light" style={{ maxHeight: "210px", maxWidth: "300px" }}>
-                <Link to={`/ProductDetails/${product._id}`}>
+                <Link to={`/ProductDetails/${product._id}`} >
+                    <i class="fas fa-heart" ></i>
                     <img src={product.images[0].url} className="img-fluid" alt={product.name} style={{ width: "300px" }} />
                 </Link>
             </div>

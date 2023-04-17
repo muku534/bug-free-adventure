@@ -31,24 +31,25 @@ import Orders from './Componets/Orders';
 import Slider from './Componets/Slider';
 import EditProfile from './Componets/EditProfile';
 import CheckOut from './Componets/CheckOut';
+import Navbar1 from './Componets/Navbar1';
 
 
 // root routes 
 const router = createBrowserRouter([
-  { path: "/", element: <> <NavbarC /> <Slider /> <Category /> <Home /> <Footer /> </> },
-  { path: "/Signin", element: <> <NavbarC /> <Signin /> </> },
-  { path: "/Signup", element: <> <NavbarC /> <Signup /> </> },
-  { path: "/ProductDetails/:id", element: <> <NavbarC /> <ProductDetails /> </> },
-  { path: "/Profile", element: <> <NavbarC /> <Profile /> </> },
-  { path: "/EditProfile", element: <> <NavbarC /> <EditProfile /> </> },
-  { path: "/ContactUs", element: <> <NavbarC /> <ContactUs /> </> },
-  { path: "/officeLaptop", element: <> <NavbarC /> <Category /> <OfficeLaptop /> <Footer /> </> },
-  { path: "/GamingLaptop", element: <> <NavbarC /> <Category /> <GamingLaptop /> <Footer /> </> },
-  { path: "/About", element: <> <NavbarC /> <About /> </> },
-  { path: "/Cart", element: <> <NavbarC /> <Cart /> </> },
-  { path: "/CheckOut", element: <> <NavbarC /> <CheckOut /> </> },
-  { path: "/Orders", element: <> <NavbarC /> <Orders /> </> },
-  { path: "/ResetPassword", element: <> <NavbarC /> <ResetPassword /> </> },
+  { path: "/", element: <> <Navbar1/> <NavbarC /> <Slider /> <Category /> <Home /> <Footer /> </> },
+  { path: "/Signin", element: <> <Navbar1/> <NavbarC /> <Signin /> </> },
+  { path: "/Signup", element: <> <Navbar1/> <NavbarC /> <Signup /> </> },
+  { path: "/ProductDetails/:id", element: <> <Navbar1/> <NavbarC /> <ProductDetails /> </> },
+  { path: "/Profile", element: <> <Navbar1/> <NavbarC /> <Profile /> </> },
+  { path: "/EditProfile", element: <> <Navbar1/> <NavbarC /> <EditProfile /> </> },
+  { path: "/ContactUs", element: <> <Navbar1/> <NavbarC /> <ContactUs /> </> },
+  { path: "/officeLaptop", element: <> <Navbar1/> <NavbarC /> <Category /> <OfficeLaptop /> <Footer /> </> },
+  { path: "/GamingLaptop", element: <> <Navbar1/> <NavbarC /> <Category /> <GamingLaptop /> <Footer /> </> },
+  { path: "/About", element: <> <Navbar1/> <NavbarC /> <About /> </> },
+  { path: "/Cart", element: <> <Navbar1/> <NavbarC /> <Cart /> </> },
+  { path: "/CheckOut", element: <> <Navbar1/> <NavbarC /> <CheckOut /> </> },
+  { path: "/Orders", element: <> <Navbar1/> <NavbarC /> <Orders /> </> },
+  { path: "/ResetPassword", element: <>  <Navbar1/> <NavbarC /> <ResetPassword /> </> },
   { path: "/AdminLogin", element: <AdminLogin /> },
   { path: "/AdminSignup", element: <AdminSignup /> },
   { path: "/Dashboard", element: <> <Dashboard /> </> },

@@ -1,6 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useAlert } from 'react-alert';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Orders = () => {
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const user = useSelector(state => state.user);
+    const navigate = useNavigate();
+    const alert = useAlert();
+    useEffect(() => {
+        const fetchOrder = async () => {
+            try {
+                if (user.userData && !user.userData.isAuth) {
+                    alert.error('please log in first.');
+                    navigate('/login');
+                    return;
+                }
+                const res = await axios.get('/myOrders');
+                setOrders(res.data.order);
+                console.log(res.data.order);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchOrder();
+    }, [user.userData, alert]);
     return (
         <>
             <section className="h-100 gradient-custom">
