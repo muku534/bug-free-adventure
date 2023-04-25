@@ -19,22 +19,22 @@ export default function Footer() {
 
                                 {/* <!-- Right --> */}
                                 <div>
-                                    <a href="/" className="me-4 link-secondary">
+                                    <a href="https://www.facebook.com/" className="me-4 link-secondary">
                                         <i className="fab fa-facebook-f"></i>
                                     </a>
-                                    <a href="/" className="me-4 link-secondary">
+                                    <a href="https://twitter.com/login?lang=en" className="me-4 link-secondary">
                                         <i className="fab fa-twitter"></i>
                                     </a>
-                                    <a href="/" className="me-4 link-secondary">
+                                    <a href="https://www.google.co.in/" className="me-4 link-secondary">
                                         <i className="fab fa-google"></i>
                                     </a>
-                                    <a href="/" className="me-4 link-secondary">
+                                    <a href="https://www.instagram.com/mr.mukesh_534/" className="me-4 link-secondary">
                                         <i className="fab fa-instagram"></i>
                                     </a>
-                                    <a href="/" className="me-4 link-secondary">
+                                    <a href="https://in.linkedin.com" className="me-4 link-secondary">
                                         <i className="fab fa-linkedin"></i>
                                     </a>
-                                    <a href="/" className="me-4 link-secondary">
+                                    <a href="https://github.com/muku534" className="me-4 link-secondary">
                                         <i className="fab fa-github"></i>
                                     </a>
                                 </div>

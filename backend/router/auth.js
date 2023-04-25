@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt')
 
 
 const User = require('../model/UserDetails');
+const Seller = require('../model/SellerDetails');
+const Admin = require('../model/AdminDetails');
 const Product = require('../model/ProductDetails');
 const Order = require('../model/OrderDetails');
 const Cart = require('../model/CartDetails')
@@ -32,8 +34,8 @@ router.post("/signup", async (req, res,) => {
                 email,
                 password: encryptedpassword,
                 avatar: {
-                    public_id: result.public_id,
-                    url: result.secure_url
+                    public_id: "images_lneu2x",
+                    url: "https://res.cloudinary.com/dkkj6aflt/image/upload/v1674198933/images_lneu2x.png"
                 }
             })
             // const picture = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' })
@@ -86,7 +88,7 @@ router.post("/adminsignup", async (req, res,) => {
         if (admin) {
             res.send({ message: "User already registerd" })
         } else {
-            const admin = new Admin({
+            const admin = new admin({
                 fname,
                 lname,
                 email,
@@ -136,7 +138,62 @@ router.post("/adminlogin", async (req, res) => {
 });
 
 
+//Seller  Signup
+router.post("/sellersignup", async (req, res,) => {
+    const { fname, lname, email, password, avatar } = req.body;
+    const encryptedpassword = await bcrypt.hash(password, 8);
+    Seller.findOne({ email: email }, async (_err, seller) => {
+        if (seller) {
+            res.send({ message: "User already registerd" })
+        } else {
+            const seller = new Seller({
+                fname,
+                lname,
+                email,
+                password: encryptedpassword,
+                avatar: {
+                    public_id: "images_lneu2x",
+                    url: " https://res.cloudinary.com/dkkj6aflt/image/upload/v1674198933/images_lneu2x.png"
+                }
+            })
+            // const picture = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' })
+            // const token = user.getJwtToken();
+            seller.save(err => {
+                if (err) {
+                    res.send(err)
+                } else {
+                    res.send({ message: "Successfully Registered, Please login now.", })
+                }
+            })
+        }
+    })
 
+});
+
+///Seller login
+router.post("/sellerlogin", async (req, res) => {
+    const { email, password } = req.body
+    Seller.findOne({ email: email }, async (_err, seller) => {
+        // const token = user.getJwtToken();
+        if (seller) {
+            if (await bcrypt.compare(password, seller.password)) {
+                token = await seller.generateAuthToken();
+                console.log(token);
+
+                res.cookie("jwtoken", token, {
+                    expires: new Date(Date.now() + 25892000000),
+                    httpOnly: true
+                });
+                res.send({ message: "Login Successfull", seller: seller, })
+            } else {
+                res.send({ message: "Password didn't match" })
+            }
+
+        } else {
+            res.send({ message: "User not registered" })
+        }
+    })
+});
 
 //logout 
 router.post("/logout", async (req, res) => {

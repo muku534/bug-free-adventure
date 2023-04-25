@@ -35,7 +35,7 @@ const AdminLogin = (props) => {
       })
       .then(_data => {
         // User was successfully signed in, redirect to the dashboard page
-        window.location.href = 'http://localhost:3000/';
+        window.location.href = 'http://localhost:3001/AdminDashboard';
       })
       .catch(error => {
         console.error(error);

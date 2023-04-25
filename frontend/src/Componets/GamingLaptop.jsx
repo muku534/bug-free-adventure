@@ -4,196 +4,303 @@ import { Link } from 'react-router-dom'
 export default function GamingLaptop() {
     return (
         <>
-            <div className="container">
-                <div className="row">
-                    <h6>Gaming Laptop`s</h6>
-                    <div className="col-lg-3 mt-5" style={{height:"400px"}}>
-                        <div className="card">
-                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <Link to={"/Product"}>
-                                    <img src="https://rukminim1.flixcart.com/image/416/416/kwdv3bk0/computer/r/m/c/15-ec2145ax-gaming-laptop-hp-original-imag92vp9cznphgg.jpeg?q=70" className="img-fluid" alt='' style={{ height: "210px", width: "300px" }} />
-                                </Link>
-                                {/* <a href="/Item">
-                                    <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}></div>
-                                </a> */}
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title text-truncate">HP Pavilion Ryzen 5 Hexa Core AMD R5-5600H</h5>
-                                <p className="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined">star_half</span>
-                            </div>
-                            <h4 className='ml-3'>₹50000</h4>
-                            <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 mt-5">
-                        <div className="card">
-                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <Link to={"/Item"}>
-                                    <img src="https://rukminim1.flixcart.com/image/416/416/l4oi4cw0/computer/i/n/e/a715-5g-gaming-laptop-acer-original-imagfj2g954wfdyz.jpeg?q=70" className="img-fluid" alt='' style={{ height: "210px", width: "300px" }} />
-                                </Link>
-                                {/* <a href="/Item">
-                                    <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}></div>
-                                </a> */}
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title text-truncate">acer Aspire 7 Core i5 12th Gen</h5>
-                                <p className="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined">star_half</span>
-                            </div>
-                            <h4 className='ml-3'>₹50000</h4>
-                            <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 mt-5">
-                        <div className="card">
-                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <Link to={"/Item"}>
-                                    <img src="https://rukminim1.flixcart.com/image/416/416/l3rmzrk0/computer/z/2/c/-original-imagetjyhhtrtkdg.jpeg?q=70" className="img-fluid" alt='' style={{ height: "210px", width: "300px" }} />
-                                </Link>
-                                {/* <a href="/Item">
-                                    <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}></div>
-                                </a> */}
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title text-truncate">ASUS TUF Gaming A17 with 90Whr Battery Ryzen 5k</h5>
-                                <p className="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined">star_half</span>
-                            </div>
-                            <h4 className='ml-3'>₹50000</h4>
-                            <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 mt-5">
-                        <div className="card">
-                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <Link to={"/Item"}>
-                                    <img src="https://rukminim1.flixcart.com/image/416/416/l1b1oy80/computer/n/t/t/fa506ic-hn075w-gaming-laptop-asus-original-imagcwugqkffhevx.jpeg?q=70" className="img-fluid" alt='' style={{ height: "210px", width: "300px" }} />
-                                </Link>
-                                {/* <a href="/Item">
-                                    <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}></div>
-                                </a> */}
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title text-truncate">ASUS Ryzen 5 Dual Core 5th Gen </h5>
-                                <p className="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined">star_half</span>
-                            </div>
-                            <h4 className='ml-3'>₹50000</h4>
-                            <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 mt-5">
-                        <div className="card">
-                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <Link to={"/Item"}>
-                                    <img src="https://rukminim1.flixcart.com/image/416/416/ko382a80/computer/b/v/u/na-gaming-laptop-asus-original-imag2mrvrxgsaahh.jpeg?q=70" className="img-fluid" alt='' style={{ height: "210px", width: "300px" }} />
-                                </Link>
-                                {/* <a href="/Item">
-                                    <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}></div>
-                                </a> */}
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title text-truncate">ASUS ROG Strix G15 (2021) Ryzen 7 Octa Core</h5>
-                                <p className="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined">star_half</span>
-                            </div>
-                            <h4 className='ml-3'>₹50000</h4>
-                            <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 mt-5">
-                        <div className="card">
-                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <Link to={"/Item"}>
-                                    <img src="https://rukminim1.flixcart.com/image/416/416/l2qhjm80/computer/j/h/b/katana-gf66-12ud-gaming-laptop-msi-original-imageym6wfkavhyh.jpeg?q=70" className="img-fluid" alt='' style={{ height: "210px", width: "300px" }} />
-                                </Link>
-                                {/* <a href="/Item">
-                                    <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}></div>
-                                </a> */}
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title text-truncate">MSI Katana GF66 Core i5 12th Gen</h5>
-                                <p className="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined">star_half</span>
-                            </div>
-                            <h4 className='ml-3'>₹50000</h4>
-                            <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 mt-5">
-                        <div className="card">
-                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <Link to={"/Item"}>
-                                    <img src="https://rukminim1.flixcart.com/image/416/416/kz4gh3k0/computer/n/e/x/fx506lh-hn258ws-gaming-laptop-asus-original-imagb7hfzhmv6v9y.jpeg?q=70" className="img-fluid" alt='' style={{ height: "210px", width: "300px" }} />
-                                </Link>
-                                {/* <a href="/Item">
-                                    <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}></div>
-                                </a> */}
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title text-truncate ">ASUS TUF Gaming F15 Core i5 10th Gen</h5>
-                                <p className="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined">star_half</span>
-                            </div>
-                            <h4 className='ml-3'>₹50000</h4>
-                            <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 mt-5">
-                        <div className="card">
-                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <Link to={"/Item"}>
-                                    <img src="https://rukminim1.flixcart.com/image/416/416/l2qhjm80/computer/l/t/g/gf63-thin-11uc-867in-gaming-laptop-msi-original-imageyk5hzuthuyf.jpeg?q=70" className="img-fluid" alt='' style={{ height: "210px", width: "300px" }} />
-                                </Link>
-                                {/* <a href="/Item">
-                                    <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}></div>
-                                </a> */}
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title text-truncate">MSI Core i7 11th Gen -</h5>
-                                <p className="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined"> star_rate</span>
-                                <span className="material-symbols-outlined">star_rate</span>
-                                <span className="material-symbols-outlined">star_half</span>
-                            </div>
-                            <h4 className='ml-3'>₹50000</h4>
-                            <p className='ml-3' style={{ color: "grey", fontSize: "12px" }}>Ships to india</p>
-                        </div>
-                    </div>
 
+            <section style={{ backgroundColor: "#eee",  }}>
+                <h6>Gaming Laptop`s</h6>
+                <div class="container py-5 mt-4">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-3 mb-4 mb-lg-0 mt-3">
+                            <div class="card" style={{border:"none"}}>
+                                <div class="d-flex justify-content-between p-3">
+                                    <p class="lead mb-0">Today's Combo Offer</p>
+                                    <div
+                                        class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                                        style={{ width: "35px", height: "35px" }}>
+                                        <p class="text-white mb-0 small">x4</p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/4.webp"
+                                    class="card-img-top" alt="Laptop" />
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
+                                        <p class="small text-danger"><s>$1099</s></p>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">HP Notebook</h5>
+                                        <h5 class="text-dark mb-0">$999</h5>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <p class="text-muted mb-0">Available: <span class="fw-bold">6</span></p>
+                                        <div class="ms-auto text-warning">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-4 mb-md-0 mt-3">
+                            <div class="card">
+                                <div class="d-flex justify-content-between p-3">
+                                    <p class="lead mb-0">Today's Combo Offer</p>
+                                    <div
+                                        class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                                        style={{ width: "35px", height: "35px" }}>
+                                        <p class="text-white mb-0 small">x2</p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/7.webp"
+                                    class="card-img-top" alt="Laptop" />
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
+                                        <p class="small text-danger"><s>$1199</s></p>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">HP Envy</h5>
+                                        <h5 class="text-dark mb-0">$1099</h5>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <p class="text-muted mb-0">Available: <span class="fw-bold">7</span></p>
+                                        <div class="ms-auto text-warning">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-4 mb-md-0 mt-3">
+                            <div class="card">
+                                <div class="d-flex justify-content-between p-3">
+                                    <p class="lead mb-0">Today's Combo Offer</p>
+                                    <div
+                                        class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                                        style={{ width: "35px", height: "35px" }}>
+                                        <p class="text-white mb-0 small">x2</p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/7.webp"
+                                    class="card-img-top" alt="Laptop" />
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
+                                        <p class="small text-danger"><s>$1199</s></p>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">HP Envy</h5>
+                                        <h5 class="text-dark mb-0">$1099</h5>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <p class="text-muted mb-0">Available: <span class="fw-bold">7</span></p>
+                                        <div class="ms-auto text-warning">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-4 mb-md-0 mt-3">
+                            <div class="card">
+                                <div class="d-flex justify-content-between p-3">
+                                    <p class="lead mb-0">Today's Combo Offer</p>
+                                    <div
+                                        class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                                        style={{ width: "35px", height: "35px" }}>
+                                        <p class="text-white mb-0 small">x2</p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/7.webp"
+                                    class="card-img-top" alt="Laptop" />
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
+                                        <p class="small text-danger"><s>$1199</s></p>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">HP Envy</h5>
+                                        <h5 class="text-dark mb-0">$1099</h5>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <p class="text-muted mb-0">Available: <span class="fw-bold">7</span></p>
+                                        <div class="ms-auto text-warning">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-4 mb-md-0 mt-3">
+                            <div class="card">
+                                <div class="d-flex justify-content-between p-3">
+                                    <p class="lead mb-0">Today's Combo Offer</p>
+                                    <div
+                                        class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                                        style={{ width: "35px", height: "35px" }}>
+                                        <p class="text-white mb-0 small">x3</p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/5.webp"
+                                    class="card-img-top" alt="Gaming Laptop" />
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
+                                        <p class="small text-danger"><s>$1399</s></p>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">Toshiba B77</h5>
+                                        <h5 class="text-dark mb-0">$1299</h5>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <p class="text-muted mb-0">Available: <span class="fw-bold">5</span></p>
+                                        <div class="ms-auto text-warning">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-4 mb-md-0 mt-3">
+                            <div class="card">
+                                <div class="d-flex justify-content-between p-3">
+                                    <p class="lead mb-0">Today's Combo Offer</p>
+                                    <div
+                                        class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                                        style={{ width: "35px", height: "35px" }}>
+                                        <p class="text-white mb-0 small">x3</p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/5.webp"
+                                    class="card-img-top" alt="Gaming Laptop" />
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
+                                        <p class="small text-danger"><s>$1399</s></p>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">Toshiba B77</h5>
+                                        <h5 class="text-dark mb-0">$1299</h5>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <p class="text-muted mb-0">Available: <span class="fw-bold">5</span></p>
+                                        <div class="ms-auto text-warning">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-4 mb-md-0 mt-3">
+                            <div class="card">
+                                <div class="d-flex justify-content-between p-3">
+                                    <p class="lead mb-0">Today's Combo Offer</p>
+                                    <div
+                                        class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                                        style={{ width: "35px", height: "35px" }}>
+                                        <p class="text-white mb-0 small">x3</p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/5.webp"
+                                    class="card-img-top" alt="Gaming Laptop" />
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
+                                        <p class="small text-danger"><s>$1399</s></p>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">Toshiba B77</h5>
+                                        <h5 class="text-dark mb-0">$1299</h5>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <p class="text-muted mb-0">Available: <span class="fw-bold">5</span></p>
+                                        <div class="ms-auto text-warning">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-4 mb-md-0 mt-3">
+                            <div class="card">
+                                <div class="d-flex justify-content-between p-3">
+                                    <p class="lead mb-0">Today's Combo Offer</p>
+                                    <div
+                                        class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                                        style={{ width: "35px", height: "35px" }}>
+                                        <p class="text-white mb-0 small">x3</p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/5.webp"
+                                    class="card-img-top" alt="Gaming Laptop" />
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
+                                        <p class="small text-danger"><s>$1399</s></p>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">Toshiba B77</h5>
+                                        <h5 class="text-dark mb-0">$1299</h5>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <p class="text-muted mb-0">Available: <span class="fw-bold">5</span></p>
+                                        <div class="ms-auto text-warning">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
+
         </>
     )
 }

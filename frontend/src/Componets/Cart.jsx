@@ -41,7 +41,7 @@ const Cart = () => {
         const res = await axios.get('/cart');
         setCartItems(res.data.cartItems);
         setLoading(false)
-        console.log(res.data.cartItems[0]);
+        console.log(res.data.cartItems);
       } catch (error) {
         console.error(error);
       }
@@ -66,18 +66,21 @@ const Cart = () => {
                         <div className="p-5">
                           <div className="d-flex justify-content-between align-items-center mb-5">
                             <h3 className="fw-bold mb-0 text-black">Shopping Cart</h3>
-                            <h6 className="mb-0 text-muted">{cartItems[0].quantity} items</h6>
+                            <h6 className="mb-0 text-muted">{cartItems.quantity} items</h6>
                           </div>
                           <hr className="my-4" />
 
                           <div className="row mb-4 d-flex justify-content-between align-items-center">
-                            <div className="col-md-2 col-lg-2 col-xl-2">
-                              {/* {product && product.images &&
-                              product.images.map(image => (
-                                <img src={image.url} alt={product.title}
-                                  className="img-fluid rounded-3" />
-                                ))} */}
-                              <img src={cartItems[0].product.images[0]} alt=""
+                            <ul>
+                              {cartItems.map((cartItem) => (
+                                <li key={cartItem._id}>
+                                  {cartItem.product.images.url}
+                                  {cartItem.product.name} - {cartItem.quantity} x {cartItem.product.price}
+                                </li>
+                              ))}
+                            </ul>
+                            {/* <div className="col-md-2 col-lg-2 col-xl-2">
+                              <img src={cartItems[0].product.images[0].url} alt=""
                                 className="img-fluid rounded-3" />
                             </div>
                             <div className="col-md-3 col-lg-3 col-xl-3">
@@ -100,7 +103,7 @@ const Cart = () => {
                             </div>
                             <div className="col-md-1 col-lg-1 col-xl-1 text-end">
                               <a href="#!" className="text-muted"><i className="fas fa-times"></i></a>
-                            </div>
+                            </div> */}
                           </div>
 
                           <hr className="my-4" />

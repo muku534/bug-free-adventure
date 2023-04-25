@@ -60,7 +60,7 @@ export default function NavbarC() {
     return (
         <div>
             {['sm'].map((expand) => (
-                <Navbar key={expand} bg="dark" variant="dark" expand={expand} >
+                <Navbar key={expand} bg='dark' variant='dark' expand={expand} >
                     <Container fluid>
                         <Navbar.Brand href="#">SCS</Navbar.Brand>
                         <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
@@ -77,8 +77,8 @@ export default function NavbarC() {
                             <Offcanvas.Body>
                                 <Nav className="justify-content-start flex-grow-1 pe-3">
                                     <Nav.Link href="/">Home</Nav.Link>
-                                    <Nav.Link href="/">Link</Nav.Link>
-                                    <Nav.Link href="/About">About</Nav.Link>
+                                    {/* <Nav.Link href="/">Link</Nav.Link> */}
+                                    {/* <Nav.Link href="/About">About</Nav.Link> */}
                                     <Nav.Link href="/ContactUs">Contact</Nav.Link>
                                     {/* <NavDropdown
                                         title="Dropdown"
@@ -113,7 +113,7 @@ export default function NavbarC() {
                                         </NavDropdown.Item>
                                     </NavDropdown>
                                 </Nav>
-                                <MDBIcon fas icon="shopping-cart" />
+                                {/* <MDBIcon fas icon="shopping-cart" /> */}
                                 <Form className="d-flex" >
                                     {/* <Form.Control
                                         type="search"
@@ -128,9 +128,9 @@ export default function NavbarC() {
                                     <Link to={"/Signin"}>
                                         <Button variant="outline-success" className="ml-2" >Signin</Button>
                                     </Link>
-                                    <Link to={"/Signup"}>
+                                    {/* <Link to={"/Signup"}>
                                         <Button variant="outline-success" className="ml-2">Signup</Button>
-                                    </Link>
+                                    </Link> */}
 
                                 </Form>
                             </Offcanvas.Body>

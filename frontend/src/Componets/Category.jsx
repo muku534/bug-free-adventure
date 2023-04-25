@@ -6,7 +6,7 @@ export default function Category() {
     <>
       <div className="container ">
         <div className="row">
-          <div className="col-lg-12 d-flex justify-content-center mt-5">
+          <div className="col-lg-12 d-flex justify-content-center ">
             <div className="img ml-2">
               <Link to={"/"}><img src="https://rukminim1.flixcart.com/flap/128/128/image/69c6589653afdb9a.png?q=100" className="rounded-circle" height="80" alt="image not found " /></Link>
               <p style={{ fontSize: "12px" }} className="">All Laptop`s</p>
