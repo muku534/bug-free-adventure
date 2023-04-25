@@ -589,3 +589,94 @@ router.put("/reviews", Authentication, async (req, res, next) => {
 })
 
 module.exports = router;
+
+app.post("/forgot-password", async (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.json({ status: "User Not Exists!!" });
+        }
+        const secret = SECRET_KEY + user.password;
+        const token = jwt.sign({ email: user.email, id: user._id }, secret, {
+            expiresIn: "5m",
+        });
+        const link = `http://localhost:5000/reset-password/${user._id}/${token}`;
+        var transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: "prajapatimukesh0111@gmail.com",
+                pass: "muku@1112002",
+            },
+        });
+
+        var mailOptions = {
+            from: "prajapatimukesh0111@gmail.com",
+            to: email,
+            subject: "Password Reset",
+            text: link,
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("Email sent: " + info.response);
+            }
+        });
+        console.log(link);
+    } catch (error) { }
+});
+
+app.get("/reset-password/:id/:token", async (req, res) => {
+    const { id, token } = req.params;
+    console.log(req.params);
+    const user = await User.findOne({ _id: id });
+    if (!user) {
+        return res.json({ status: "User Not Exists!!" });
+    }
+    const secret = SECRET_KEY + user.password;
+    try {
+        const verify = jwt.verify(token, secret);
+        res.render("index", { email: verify.email, status: "Not Verified" });
+    } catch (error) {
+        console.log(error);
+        res.send("Not Verified");
+    }
+});
+
+app.post("/reset-password/:id/:token", async (req, res) => {
+    const { id, token } = req.params;
+    const { password } = req.body;
+
+    if (!password) {
+        return res.json({ status: "Password is required" });
+    }
+
+    const user = await User.findOne({ _id: id });
+    if (!user) {
+        return res.json({ status: "User Not Exists!!" });
+    }
+
+
+    const secret = SECRET_KEY + user.password;
+    try {
+        const verify = jwt.verify(token, secret);
+        const encryptedPassword = await bcrypt.hash(password, 10);
+        await User.updateOne(
+            {
+                _id: id,
+            },
+            {
+                $set: {
+                    password: encryptedPassword,
+                },
+            }
+        );
+
+        res.render("index", { email: verify.email, status: "verified" });
+    } catch (error) {
+        console.log(error);
+        res.json({ status: "Something Went Wrong" });
+    }
+});
