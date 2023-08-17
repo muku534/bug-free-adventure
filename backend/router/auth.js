@@ -15,69 +15,77 @@ const APIFeatures = require('../utils/APIFeatures')
 const cloudinary = require('cloudinary')
 
 //signup
-router.post("/signup", async (req, res,) => {
+router.post("/signup", async (req, res) => {
     const { fname, lname, email, password, avatar } = req.body;
-    const encryptedpassword = await bcrypt.hash(password, 8);
-    const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-        folder: 'avatars',
-        width: 150,
-        crop: "scale"
+    const encryptedPassword = await bcrypt.hash(password, 8);
 
-    })
-    User.findOne({ email: email }, async (_err, user) => {
-        if (user) {
-            res.send({ message: "User already registerd" })
-        } else {
-            const user = new User({
-                fname,
-                lname,
-                email,
-                password: encryptedpassword,
-                avatar: {
-                    public_id: "images_lneu2x",
-                    url: "https://res.cloudinary.com/dkkj6aflt/image/upload/v1674198933/images_lneu2x.png"
-                }
-            })
-            // const picture = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' })
-            user.save(err => {
-                if (err) {
-                    res.send(err)
-                } else {
-                    res.send({ message: "Successfully Registered, Please login now." })
-                }
-            })
+    try {
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).send({ success: false, message: "User already registered" });
         }
-    })
 
+        const result = await cloudinary.v2.uploader.upload(avatar, {
+            folder: 'avatars',
+            width: 150,
+            crop: "scale"
+        });
+
+        const newUser = new User({
+            fname,
+            lname,
+            email,
+            password: encryptedPassword,
+            avatar: {
+                public_id: result.public_id,
+                url: result.secure_url
+            }
+        });
+
+        newUser.save((err) => {
+            if (err) {
+                return res.status(500).send({ success: false, message: "Failed to register user", error: err });
+            }
+            res.status(201).send({ success: true, message: "Successfully registered. Please login now." });
+        });
+    } catch (error) {
+        console.error("Error registering user:", error);
+        res.status(500).send({ success: false, message: "Internal server error" });
+    }
 });
 
 
 //signin
 router.post("/signin", async (req, res) => {
-    let token;
-    const { email, password } = req.body
-    User.findOne({ email: email }, async (_err, user) => {
-        // setAuthToken(user, 200, res)
-        if (user) {
-            if (await bcrypt.compare(password, user.password)) {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email });
 
-                token = await user.generateAuthToken();
-                console.log(token);
+        if (user) {
+            const isPasswordMatch = bcrypt.compare(password, user.password);
+
+            if (isPasswordMatch) {
+                const token = await user.generateAuthToken();
 
                 res.cookie("jwtoken", token, {
                     expires: new Date(Date.now() + 25892000000),
-                    httpOnly: true
+                    httpOnly: true,
+                    secure: true, // Set to true if using HTTPS
+                    sameSite: "strict", // Adjust based on your needs
                 });
 
-                res.send({ message: "Login Successfull", user: user, })
+                res.status(200).send({ success: true, message: "Login Successful", user });
             } else {
-                res.send({ message: "Password didn't match" })
+                res.status(401).send({ success: false, message: "Incorrect password" });
             }
-
         } else {
-            res.send({ message: "User not registered" })
+            res.status(404).send({ success: false, message: "User not registered" });
         }
-    })
+    } catch (error) {
+        console.error("Error signing in:", error);
+        res.status(500).send({ success: false, message: "Internal server error" });
+    }
 });
 
 //Admin Signup
@@ -260,7 +268,12 @@ router.put("/updatePassword", Authentication, async (req, res, next) => {
 // add products
 router.post("/Product", async (req, res, next) => {
     const product = await Product.create(req.body);
+    const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: 'avatars',
+        width: 150,
+        crop: "scale"
 
+    })
     res.status(201).json({
         success: true,
         product
@@ -356,35 +369,78 @@ router.delete("/deleteProducts/:id", async (req, res, next) => {
 });
 
 //add to cart 
-router.post('/add-to-cart', Authentication, async (req, res) => {
-    const { product, rootUser, quantity, price } = req.body;
+// router.post('/add-to-cart', Authentication, async (req, res) => {
+//     const { product, rootUser, quantity, price } = req.body;
 
-    // Check if the product is already in the cart for this user
-    const existingCartItem = await Cart.findOne({ product, user: req.rootUser });
-    if (existingCartItem) {
-        // If the product is already in the cart, update the quantity
-        existingCartItem.quantity += quantity;
-        await existingCartItem.save();
-        res.status(200).json({
-            success: true,
-            message: 'Product quantity updated in cart',
-            cartItem: existingCartItem
-        });
-    } else {
-        // If the product is not in the cart, create a new cart item
-        const newCartItem = await Cart.create({
-            product,
-            user: req.rootUser,
-            quantity,
-            price
-        });
-        res.status(200).json({
-            success: true,
-            message: 'Product added to cart',
-            cartItem: newCartItem
+//     // Check if the product is already in the cart for this user
+//     const existingCartItem = await Cart.findOne({ product, user: req.rootUser });
+//     if (existingCartItem) {
+//         // If the product is already in the cart, update the quantity
+//         existingCartItem.quantity += quantity;
+//         await existingCartItem.save();
+//         res.status(200).json({
+//             success: true,
+//             message: 'Product quantity updated in cart',
+//             cartItem: existingCartItem
+//         });
+//     } else {
+//         // If the product is not in the cart, create a new cart item
+//         const newCartItem = await Cart.create({
+//             product,
+//             user: req.rootUser,
+//             quantity,
+//             price
+//         });
+//         res.status(200).json({
+//             success: true,
+//             message: 'Product added to cart',
+//             cartItem: newCartItem
+//         });
+//     }
+// });
+
+router.post('/add-to-cart', Authentication, async (req, res) => {
+    try {
+        const { product, quantity, price } = req.body;
+        const user = req.rootUser;
+
+        // Check if the product is already in the cart for this user
+        let cartItem = await Cart.findOne({ product, user });
+
+        if (cartItem) {
+            // If the product is already in the cart, update the quantity
+            cartItem.quantity += quantity;
+            await cartItem.save();
+            res.status(200).json({
+                success: true,
+                message: 'Product quantity updated in cart',
+                cartItem
+            });
+        } else {
+            // If the product is not in the cart, create a new cart item
+            cartItem = await Cart.create({
+                product,
+                user,
+                quantity,
+                price
+            });
+            res.status(200).json({
+                success: true,
+                message: 'Product added to cart',
+                cartItem
+            });
+        }
+    } catch (error) {
+        console.error('Error adding product to cart:', error);
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while adding product to cart'
         });
     }
 });
+
+
+
 
 //get add-to-cart product
 router.get('/cart', Authentication, async (req, res) => {
@@ -589,94 +645,3 @@ router.put("/reviews", Authentication, async (req, res, next) => {
 })
 
 module.exports = router;
-
-app.post("/forgot-password", async (req, res) => {
-    const { email } = req.body;
-    try {
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.json({ status: "User Not Exists!!" });
-        }
-        const secret = SECRET_KEY + user.password;
-        const token = jwt.sign({ email: user.email, id: user._id }, secret, {
-            expiresIn: "5m",
-        });
-        const link = `http://localhost:5000/reset-password/${user._id}/${token}`;
-        var transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: "prajapatimukesh0111@gmail.com",
-                pass: "muku@1112002",
-            },
-        });
-
-        var mailOptions = {
-            from: "prajapatimukesh0111@gmail.com",
-            to: email,
-            subject: "Password Reset",
-            text: link,
-        };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log("Email sent: " + info.response);
-            }
-        });
-        console.log(link);
-    } catch (error) { }
-});
-
-app.get("/reset-password/:id/:token", async (req, res) => {
-    const { id, token } = req.params;
-    console.log(req.params);
-    const user = await User.findOne({ _id: id });
-    if (!user) {
-        return res.json({ status: "User Not Exists!!" });
-    }
-    const secret = SECRET_KEY + user.password;
-    try {
-        const verify = jwt.verify(token, secret);
-        res.render("index", { email: verify.email, status: "Not Verified" });
-    } catch (error) {
-        console.log(error);
-        res.send("Not Verified");
-    }
-});
-
-app.post("/reset-password/:id/:token", async (req, res) => {
-    const { id, token } = req.params;
-    const { password } = req.body;
-
-    if (!password) {
-        return res.json({ status: "Password is required" });
-    }
-
-    const user = await User.findOne({ _id: id });
-    if (!user) {
-        return res.json({ status: "User Not Exists!!" });
-    }
-
-
-    const secret = SECRET_KEY + user.password;
-    try {
-        const verify = jwt.verify(token, secret);
-        const encryptedPassword = await bcrypt.hash(password, 10);
-        await User.updateOne(
-            {
-                _id: id,
-            },
-            {
-                $set: {
-                    password: encryptedPassword,
-                },
-            }
-        );
-
-        res.render("index", { email: verify.email, status: "verified" });
-    } catch (error) {
-        console.log(error);
-        res.json({ status: "Something Went Wrong" });
-    }
-});
