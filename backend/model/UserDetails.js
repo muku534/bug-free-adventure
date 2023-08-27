@@ -2,47 +2,25 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
 const UserDetailsScehma = new mongoose.Schema({
 
-    googleId: {
+    randomNumber: {
         type: String,
-        required: false
-    },
-    fname: {
-        type: String,
-        required: [true, "Please provide a fname"],
-    },
-    lname: {
-        type: String,
-        required: [true, "Please provide a lname"],
-    },
-    email: {
-        type: String,
-        required: [true, "Please provide a unique email"],
+        required: true,
         unique: true,
     },
-    password: {
+    name: {
         type: String,
-        required: [true, "Please provide a password"],
-        unique: false,
+        required: [false, "Please provide a name"],
     },
-    phoneNumber: {
+    bio: {
         type: String,
+        required: [false, "Please provide a bio"],
     },
     address: {
         type: String
     },
-    avatar: {
-        public_id: {
-            type: String,
-            required: true
-        },
-        url: {
-            type: String,
-            required: true
-        }
-    },
-    role: {
+    profileImage: {
         type: String,
-        default: 'user'
+        required: false,
     },
     creactedAt: {
         type: Date,
@@ -88,6 +66,6 @@ UserDetailsScehma.methods.generateAuthToken = async function () {
 //     return bcrypt.compareSync(password, this.password);
 // };
 
-const User = mongoose.model('Buyer', UserDetailsScehma);
+const User = mongoose.model('User', UserDetailsScehma);
 
 module.exports = User;

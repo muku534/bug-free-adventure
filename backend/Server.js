@@ -1,68 +1,33 @@
-require('dotenv').config()
-const express = require('express')
-const http = require('http')
-const mongoose = require('mongoose')
-const app = express()
-const User = require('./model/UserDetails.js')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-const nodemailer = require('nodemailer')
-const cors = require('cors')
-const morgan = require('morgan')
-const Signin = require('./api/Signin')
-const Signup = require('./api/Signup')
-const cookieparser = require('cookie-parser')
-const bodyparser = require('body-parser')
-const cloudinary = require('cloudinary')
-const fileupload = require('express-fileupload')
-// app.set("view engine", "ejs");
+// server/server.js
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const GenerateNumber = require('./routes/auth');
+const cors = require('cors');
+const multer = require('multer');
+const app = express();
 
-
-app.use(express.json());
-app.use(bodyparser.urlencoded({ extended: true }));
-app.use(cookieparser());
-
-//setting up cloudinary
-cloudinary.config({
-    cloud_name: process.env_,
-    api_key: process.env,
-    api_secret: process.env
-})
-/** middlewares */
+//Enable CORS for all origins
 app.use(cors());
-app.use(morgan('tiny'));
-app.disable('x-powered-by'); // less hackers know about our stack
 
-app.listen(process.env_, '0.0.0.0', () => {
-    console.log('listening to the port no 5000');
-});
+// Parse JSON body
+app.use(express.json());
 
-const DB =process.env
-
-mongoose.set('strictQuery', true);
+// MongoDB configuration (replace YOUR_MONGODB_URI with your actual MongoDB connection string)
+const DB = process.env.ATLAS_URI
 
 mongoose.connect(DB, {
     useNewUrlParser: true,
-    // useCreactIndex:true,
     useUnifiedTopology: true,
-    // useFindAndModify:false
 }).then(() => {
     console.log('connection succesfull');
 }).catch((err) => console.log('Error in connecting to DataBase', err.message));
 
-//import all routes
+// Routes
+app.use(require("./routes/auth"));
 
-//ROUTES
-require("./api/adminsignup")(app);
-require("./api/adminlogin")(app);
-// require("./controller/products");
-// require("./api/product");
-require("./api/Signin")(app);
-require("./api/Signup")(app);
-require("./api/googlelogin");
-// require("./api/product")(app);
-// require("./router/auth/profile");
-app.use(require("./router/auth"));
-
-
-
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
