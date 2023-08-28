@@ -10,9 +10,11 @@ const Admin = require('../model/AdminDetails');
 const Product = require('../model/ProductDetails');
 const Order = require('../model/OrderDetails');
 const Cart = require('../model/CartDetails')
+const Wishlist = require('../model/WhishList')
 const Authentication = require('../middleware/Authentication');
 const APIFeatures = require('../utils/APIFeatures')
 const cloudinary = require('cloudinary')
+const stripe = require('stripe')(process.env.STRIPE_SECRETE_KEY)
 
 //signup
 router.post("/signup", async (req, res) => {
@@ -225,27 +227,49 @@ router.get('/profile', Authentication, (req, res,) => {
 })
 
 
-//update User Profile
-router.put("/updateProfile", Authentication, async (req, res, next) => {
-    const NewUserData = {
-        fname: req.body.fname,
-        lname: req.body.lname,
-        email: req.body.email,
+// Route to update user's profile including profile image
+router.put("/updateProfile", Authentication, async (req, res) => {
+    try {
+        const { fname, lname, email, uploadedImage } = req.body;
+
+        // Create a data object for the updated profile
+        const updatedUserData = {
+            fname,
+            lname,
+            email,
+            avatar: {
+                url: null // Placeholder for Cloudinary URL
+            }
+        };
+
+        if (uploadedImage) {
+            // Upload the image to Cloudinary
+            const cloudinaryResponse = await cloudinary.uploader.upload(uploadedImage, {
+                folder: 'profile-images', // Optional folder in your Cloudinary account
+                folder: 'avatar',
+                overwrite: true // Replace if an image with the same name exists
+            });
+
+            updatedUserData.avatar.url = cloudinaryResponse.secure_url;
+        }
+
+        // Update user's profile in the database
+        const updatedUser = await User.findByIdAndUpdate(req.rootUser, updatedUserData, {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false
+        });
+
+        res.status(200).json({
+            success: true,
+            user: updatedUser
+        });
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        res.status(500).json({ success: false, error: "Error updating profile" });
     }
+});
 
-    //update avatar : Later
-
-    const user = await User.findByIdAndUpdate(req.rootUser, NewUserData, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false
-    })
-
-    res.status(200).json({
-        success: true,
-        user
-    })
-})
 
 // //update OR change the Previous Password not Working
 router.put("/updatePassword", Authentication, async (req, res, next) => {
@@ -410,6 +434,7 @@ router.post('/add-to-cart', Authentication, async (req, res) => {
         if (cartItem) {
             // If the product is already in the cart, update the quantity
             cartItem.quantity += quantity;
+            cartItem.price += price * quantity;
             await cartItem.save();
             res.status(200).json({
                 success: true,
@@ -424,10 +449,17 @@ router.post('/add-to-cart', Authentication, async (req, res) => {
                 quantity,
                 price
             });
+
+
+            //calculate the total price of all cart items for this user
+            const allCartItems = await Cart.find({ user });
+            const totalCartPrice = allCartItems.reduce((total, item) => total + item.price, 0);
+
             res.status(200).json({
                 success: true,
                 message: 'Product added to cart',
-                cartItem
+                cartItem,
+                totalCartPrice
             });
         }
     } catch (error) {
@@ -439,13 +471,50 @@ router.post('/add-to-cart', Authentication, async (req, res) => {
     }
 });
 
+//add to whishlist
+router.post('/wishlist', Authentication, async (req, res) => {
+    try {
+        const { product, price } = req.body;
+        const user = req.rootUser;
 
+        // Check if the product is already in the wishlist for this user
+        let wishlistItem = await Wishlist.findOne({ product, user });
+
+        if (wishlistItem) {
+            // If the product is already in the wishlist, remove it from the wishlist
+            await Wishlist.findByIdAndDelete(wishlistItem._id);
+            res.status(200).json({
+                success: true,
+                message: 'Product removed from wishlist'
+            });
+        } else {
+            // If the product is not in the wishlist, add it to the wishlist
+            wishlistItem = await Wishlist.create({
+                product,
+                user,
+                price
+            });
+            res.status(200).json({
+                success: true,
+                message: 'Product added to wishlist',
+                wishlistItem
+            });
+        }
+    } catch (error) {
+        console.error('Error updating wishlist:', error);
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while updating wishlist'
+        });
+    }
+});
 
 
 //get add-to-cart product
 router.get('/cart', Authentication, async (req, res) => {
     try {
         const cartItems = await Cart.find({ user: req.rootUser }).populate('product');
+
         res.status(200).json({
             success: true,
             cartItems
@@ -458,6 +527,23 @@ router.get('/cart', Authentication, async (req, res) => {
         });
     }
 });
+
+//get wishlist products
+router.get('/wishlist', Authentication, async (req, res) => {
+    try {
+        const wishlist = await Wishlist.find({ user: req.rootUser }).populate('product');
+        res.status(200).json({
+            success: true,
+            wishlist
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'Unale to retrieve wishlist items'
+        })
+    }
+})
 
 //user can delete that cart product
 router.delete('/cart/:id', Authentication, async (req, res) => {
@@ -479,47 +565,87 @@ router.delete('/cart/:id', Authentication, async (req, res) => {
 });
 
 
-//create new order
 router.post("/newOrder", Authentication, async (req, res, next) => {
-    const { orderItems,
-        ShippingInfo,
-        itemsPrice,
-        taxPrice,
-        ShippingPrice,
-        totalPrice,
-        paymentInfo,
-        rootUser
-    } = req.body;
+    try {
+        const {
+            orderItems,
+            itemsPrice,
+            totalPrice,
+            paymentInfo,
+            rootUser
+        } = req.body;
 
-    const order = await Order.create({
-        orderItems,
-        ShippingInfo,
-        itemsPrice,
-        taxPrice,
-        ShippingPrice,
-        totalPrice,
-        paymentInfo,
-        paidAt: Date.now(),
-        user: req.rootUser
-    })
-
-    // Decrease product stock
-    orderItems.forEach(async (item) => {
-        const product = await Product.findById(item.product);
-
-        if (product.stock < item.qty) {
-            throw new Error(`Product ${product.name} has insufficient stock`);
+        // Validate order items, prices, and payment info
+        if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0 ||
+            !itemsPrice || !totalPrice || !paymentInfo || !rootUser) {
+            return res.status(400).json({ success: false, message: "Invalid order data" });
         }
-        product.stock -= item.qty;
-        await product.save();
-    });
 
-    res.status(200).json({
-        success: true,
-        order
-    });
-})
+        // Check and decrease product stock
+        const productsToUpdate = [];
+        for (const item of orderItems) {
+            const product = await Product.findById(item.product);
 
+            if (!product) {
+                return res.status(404).json({ success: false, message: `Product not found for ID ${item.product}` });
+            }
+
+            if (product.stock < item.qty) {
+                return res.status(400).json({ success: false, message: `Product ${product.name} has insufficient stock` });
+            }
+
+            productsToUpdate.push({ product, quantityToReduce: item.qty });
+        }
+
+        // Reduce product stock
+        for (const productData of productsToUpdate) {
+            const { product, quantityToReduce } = productData;
+            product.stock -= quantityToReduce;
+            await product.save();
+        }
+
+        // Create the order
+        const order = await Order.create({
+            orderItems,
+            itemsPrice,
+            totalPrice,
+            paymentInfo,
+            paidAt: Date.now(),
+            user: rootUser
+        });
+
+        res.status(201).json({ success: true, order });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "An error occurred while processing the order" });
+    }
+});
+
+
+// //Payment Route
+router.post("/intents", async (req, res) => {
+    try {
+
+        const amountInRupees = req.body.amount;  //the amount is in rupees
+        const amountInPaise = amountInRupees * 100; // covert the amount in to paise
+
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: amountInPaise,
+            currency: 'INR',
+        });
+
+        res.status(200).json({
+            success: true,
+            paymentIntent: paymentIntent.client_secret
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
 
 //get logged in user orders 
 router.get("/myOrders/:id", Authentication, async (req, res, next) => {
